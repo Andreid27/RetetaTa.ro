@@ -32,6 +32,7 @@ public class Reteta {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
+                    CascadeType.ALL,
                     CascadeType.MERGE
             })
     @JoinTable(name = "reteta_ingredient_cantitate",
@@ -67,6 +68,7 @@ public class Reteta {
     public void setDenumire(String denumire) {
         this.denumire = denumire;
     }
+
 
     public String getDescriere() {
         return descriere;
