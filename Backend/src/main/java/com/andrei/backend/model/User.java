@@ -1,5 +1,6 @@
 package com.andrei.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,6 +22,7 @@ public class User {
         this.name = name;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public long getId() {
         return id;
     }

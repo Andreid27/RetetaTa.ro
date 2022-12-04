@@ -1,6 +1,7 @@
 package com.andrei.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -32,7 +33,7 @@ public class IngredientCantitate {
     public IngredientCantitate() {
 
     }
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public long getId() {
         return id;
     }
