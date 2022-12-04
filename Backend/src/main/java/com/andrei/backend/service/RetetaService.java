@@ -36,4 +36,8 @@ public class RetetaService {
         retetaRepository.deleteById(id);
     }
 
+    public List<Reteta> findByIngredient(String denumireIngredient){
+     return retetaRepository.findAllByIngredientCantitateIngredientDenumire(denumireIngredient);
+    }
+
 }

@@ -38,7 +38,10 @@ public class RetetaController {
         retetaService.deleteReteta(id);
     }
 
-
+    @GetMapping("/reteta-contine/{ingredient}")
+    public List<Reteta> getReteta(@PathVariable String ingredient){
+        return retetaService.findByIngredient(ingredient);
+    }
 
 
 }
