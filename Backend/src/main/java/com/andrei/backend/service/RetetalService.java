@@ -22,6 +22,9 @@ public class RetetalService {
 
     public void addReteta(Reteta reteta) {retetaRepository.save(reteta);}
 
+    public Reteta getReteta(Long id) {
+        return (Reteta) retetaRepository.findById(id).get();
+    }
 
 
 }
