@@ -32,7 +32,6 @@ public class Reteta {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                    CascadeType.PERSIST,
                     CascadeType.MERGE
             })
     @JoinTable(name = "reteta_ingredient_cantitate",
