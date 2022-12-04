@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class RetetalService {
+public class RetetaService {
 
     @Autowired
     private RetetaRepository retetaRepository;
@@ -26,5 +26,14 @@ public class RetetalService {
         return (Reteta) retetaRepository.findById(id).get();
     }
 
+
+    public void updateReteta(Reteta reteta) {
+        retetaRepository.save(reteta);
+    }
+
+
+    public void deleteReteta(Long id) {
+        retetaRepository.deleteById(id);
+    }
 
 }

@@ -1,7 +1,7 @@
 package com.andrei.backend.controller;
 
 import com.andrei.backend.model.Reteta;
-import com.andrei.backend.service.RetetalService;
+import com.andrei.backend.service.RetetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +11,32 @@ import java.util.List;
 public class RetetaController {
 
     @Autowired
-    RetetalService retetalService;
+    RetetaService retetaService;
 
     @GetMapping("/retete")
     public List<Reteta> getAllRetete() {
-        return retetalService.getAllRetete();
+        return retetaService.getAllRetete();
     }
 
     @GetMapping("/reteta/{id}")
     public Reteta getReteta(@PathVariable Long id){
-        return retetalService.getReteta(id);
+        return retetaService.getReteta(id);
     }
 
-    @PostMapping("/retete")
+    @PostMapping("/reteta")
     public void addReteta(@RequestBody Reteta reteta){
-        retetalService.addReteta(reteta);
+        retetaService.addReteta(reteta);
     }
 
+    @PutMapping("/reteta")
+    public void updateReteta(@RequestBody Reteta reteta) {
+        retetaService.updateReteta(reteta);
+    }
 
+    @DeleteMapping("/reteta/{id}")
+    public void deleteReteta(@PathVariable Long id){
+        retetaService.deleteReteta(id);
+    }
 
 
 

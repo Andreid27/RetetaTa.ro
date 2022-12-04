@@ -1,6 +1,5 @@
 package com.andrei.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,7 +21,7 @@ public class User {
         this.name = name;
     }
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // este nevoie pentru a autoriza update-ul
     public long getId() {
         return id;
     }
