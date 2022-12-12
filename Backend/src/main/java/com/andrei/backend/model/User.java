@@ -22,7 +22,6 @@ public class User implements UserDetails {
     private String phoneNumber;
     private String password;
     private Boolean active;
-//    private List<GrantedAuthority> authorities;
 
 
     public User() {}
