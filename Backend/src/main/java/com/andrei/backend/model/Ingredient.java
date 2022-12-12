@@ -13,7 +13,6 @@ public class Ingredient {
     @GeneratedValue
     @Column(unique = true)
     private int id;
-
     private String denumire;
     private String descriere;
 
