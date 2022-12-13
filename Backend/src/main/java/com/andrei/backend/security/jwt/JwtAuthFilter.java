@@ -1,6 +1,8 @@
 package com.andrei.backend.security.jwt;
 
 import com.andrei.backend.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -30,15 +34,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+        try {
 
-        final String authHeader = request.getHeader(AUTHORIZATION);
-        final String username;
-        final String jwtToken;
+            final String authHeader = request.getHeader(AUTHORIZATION);
+            final String username;
+            final String jwtToken;
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             jwtToken = authHeader.substring(7);
             username = jwtUtils.extractUsername(jwtToken);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -51,5 +56,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 }
                 filterChain.doFilter(request, response);
             }
+        } catch (ExpiredJwtException e){
+            response.setHeader("error", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setContentType("application/json");
+            Map<String,String> error = new HashMap();
+            error.put("Error message", e.getMessage());
+            new ObjectMapper().writeValue(response.getOutputStream(),error);
+        }
     }
 }

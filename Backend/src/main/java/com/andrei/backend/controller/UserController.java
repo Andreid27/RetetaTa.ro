@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Controller
@@ -56,7 +52,6 @@ public class UserController {
 
         String new_access_token = null;
         String new_refresh_token = null;
-        try {
         final String authHeader = request.getHeader(AUTHORIZATION);
         final String username;
         final String jwtToken;
@@ -66,21 +61,9 @@ public class UserController {
             if (username != null && !jwtTokenUtil.isTokenExpired(jwtToken)) {
                 User user = (User) userService.loadUserByUsername(username);
                 new_access_token = jwtTokenUtil.generateToken(user, 10);
-                new_refresh_token = jwtTokenUtil.generateToken(user, 12*60);
-            }
-            else{
-                Exception exception = new Exception();
-                throw exception;
+                new_refresh_token = jwtTokenUtil.generateToken(user, 12 * 60);
             }
         }
-
-    } catch (Exception e){
-            response.setHeader("error", e.getMessage());
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            Map<String,String> error = new HashMap();
-            error.put("Error message", e.getMessage());
-            return ResponseEntity.of(Optional.of(response));
-        }
-        return ResponseEntity.ok(new AuthenticationResponese(new_access_token,new_refresh_token));
+        return ResponseEntity.ok(new AuthenticationResponese(new_access_token, new_refresh_token));
     }
 }
