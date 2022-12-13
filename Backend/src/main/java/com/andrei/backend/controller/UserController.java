@@ -33,7 +33,9 @@ public class UserController {
         }
 
         final User user = (User) userService.loadUserByUsername(authenticationRequest.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(user);
+        final String jwt = jwtTokenUtil.generateToken(user,1);
+      //final String refresh_token = jwtTokenUtil.generateToken(user,12*60);
+
 
         return ResponseEntity.ok(new AuthenticationResponese(jwt));
     }
