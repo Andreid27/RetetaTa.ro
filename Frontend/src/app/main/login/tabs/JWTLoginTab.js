@@ -1,6 +1,7 @@
 import { TextFieldFormsy } from '@fuse/core/formsy';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +9,7 @@ import Formsy from 'formsy-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitLogin } from 'app/auth/store/loginSlice';
+import clsx from 'clsx';
 
 function JWTLoginTab(props) {
 	const dispatch = useDispatch();
@@ -17,6 +19,14 @@ function JWTLoginTab(props) {
 	const [showPassword, setShowPassword] = useState(false);
 
 	const formRef = useRef(null);
+
+	const useStyles = makeStyles(theme => ({
+		jwtTab: {
+			marginTop: '50px'
+		}
+	}));
+
+	const classes = useStyles();
 
 	useEffect(() => {
 		if (login.error && (login.error.email || login.error.password)) {
@@ -46,12 +56,12 @@ function JWTLoginTab(props) {
 				onValid={enableButton}
 				onInvalid={disableButton}
 				ref={formRef}
-				className="flex flex-col justify-center w-full"
+				className={clsx(classes.jwtTab, 'flex flex-col justify-center w-full')}
 			>
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
-					name="email"
+					name="username"
 					label="Username/Email"
 					value="admin"
 					validations={{
@@ -114,56 +124,6 @@ function JWTLoginTab(props) {
 					Login
 				</Button>
 			</Formsy>
-
-			<table className="text-center w-full mt-32">
-				<thead>
-					<tr>
-						<th>
-							<Typography className="font-600" color="textSecondary">
-								Role
-							</Typography>
-						</th>
-						<th>
-							<Typography className="font-600" color="textSecondary">
-								Username
-							</Typography>
-						</th>
-						<th>
-							<Typography className="font-600" color="textSecondary">
-								Password
-							</Typography>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<Typography className="font-600" color="textSecondary">
-								Admin
-							</Typography>
-						</td>
-						<td>
-							<Typography>admin</Typography>
-						</td>
-						<td>
-							<Typography>admin</Typography>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<Typography className="font-600" color="textSecondary">
-								Staff
-							</Typography>
-						</td>
-						<td>
-							<Typography>staff</Typography>
-						</td>
-						<td>
-							<Typography>staff</Typography>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
 	);
 }

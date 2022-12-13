@@ -1,7 +1,10 @@
 import FuseUtils from '@fuse/utils/FuseUtils';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import * as apiSpec from '../../apiSpec';
 /* eslint-disable camelcase */
+
+const ACCESS_TOKEN_KEY = 'cmV0ZXRhdGFybw==';
 
 class JwtService extends FuseUtils.EventEmitter {
 	init() {
@@ -16,7 +19,7 @@ class JwtService extends FuseUtils.EventEmitter {
 			},
 			err => {
 				return new Promise((resolve, reject) => {
-					if (err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
+					if (err.response.status === 403 && err.config && !err.config.__isRetryRequest) {
 						// if you ever get an unauthorized response, logout the user
 						this.emit('onAutoLogout', 'Invalid access_token');
 						this.setSession(null);
@@ -47,7 +50,7 @@ class JwtService extends FuseUtils.EventEmitter {
 
 	createUser = data => {
 		return new Promise((resolve, reject) => {
-			axios.post('/api/auth/register', data).then(response => {
+			axios.post(apiSpec.REGISTER, data).then(response => {
 				if (response.data.user) {
 					this.setSession(response.data.access_token);
 					resolve(response.data.user);
@@ -58,19 +61,18 @@ class JwtService extends FuseUtils.EventEmitter {
 		});
 	};
 
-	signInWithEmailAndPassword = (email, password) => {
+	signInWithUsernameAndPassword = (username, password) => {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('http://localhost:8080/api/login', {
-					data: {
-						"email": "andrei@dinca.one",
-						"password": "123456"
-					}
+				.post(apiSpec.LOGIN, {
+					username,
+					password
 				})
 				.then(response => {
-					if (response.data.user) {
+					if (response.data) {
+						console.log(response.data)
 						this.setSession(response.data.access_token);
-						resolve(response.data.user);
+						resolve(response.data);
 					} else {
 						reject(response.data.error);
 					}
@@ -81,15 +83,24 @@ class JwtService extends FuseUtils.EventEmitter {
 	signInWithToken = () => {
 		return new Promise((resolve, reject) => {
 			axios
-				.get('/api/auth/access-token', {
-					data: {
-						access_token: this.getAccessToken()
-					}
-				})
+				.get(
+					apiSpec.LOGIN
+					// 	, {
+					// 	data: {
+					// 		access_token: this.getAccessToken()
+					// 	}
+					// }
+				)
 				.then(response => {
-					if (response.data.user) {
+					if (response.data) {
 						this.setSession(response.data.access_token);
-						resolve(response.data.user);
+						this.getUserData()
+							.then(data => {
+								resolve(data);
+							})
+							.catch(() => {
+								reject(new Error('Failed to login with token. No token provided!'));
+							});
 					} else {
 						this.logout();
 						reject(new Error('Failed to login with token.'));
@@ -102,6 +113,19 @@ class JwtService extends FuseUtils.EventEmitter {
 		});
 	};
 
+	getUserData = () => {
+		return new Promise((resolve, reject) => {
+			axios.get(apiSpec.PROFILE).then(response => {
+				if (response.data) {
+					resolve(response.data);
+				} else {
+					this.logout();
+					reject(new Error('Failed to login with token.'));
+				}
+			});
+		});
+	};
+
 	updateUserData = user => {
 		return axios.post('/api/auth/user/update', {
 			user
@@ -110,10 +134,10 @@ class JwtService extends FuseUtils.EventEmitter {
 
 	setSession = access_token => {
 		if (access_token) {
-			localStorage.setItem('jwt_access_token', access_token);
+			window.localStorage.setItem(ACCESS_TOKEN_KEY, access_token);
 			axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
 		} else {
-			localStorage.removeItem('jwt_access_token');
+			window.localStorage.removeItem(ACCESS_TOKEN_KEY);
 			delete axios.defaults.headers.common.Authorization;
 		}
 	};
@@ -137,7 +161,7 @@ class JwtService extends FuseUtils.EventEmitter {
 	};
 
 	getAccessToken = () => {
-		return window.localStorage.getItem('jwt_access_token');
+		return window.localStorage.getItem(ACCESS_TOKEN_KEY);
 	};
 }
 

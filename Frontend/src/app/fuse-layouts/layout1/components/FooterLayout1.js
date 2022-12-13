@@ -25,7 +25,7 @@ function FooterLayout1(props) {
 					</div>
 
 					<div className="flex flex-grow flex-shrink-0 px-12 justify-end">
-						<PoweredByLinks />
+						{/* <PoweredByLinks /> */}
 					</div>
 				</Toolbar>
 			</AppBar>

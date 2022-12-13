@@ -1,111 +1,84 @@
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import Popover from '@material-ui/core/Popover';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { makeStyles } from '@material-ui/core/styles';
+import { darken } from '@material-ui/core/styles/colorManipulator';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
+import clsx from 'clsx';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logoutUser } from 'app/auth/store/userSlice';
+import JWTLoginTab from '../../main/login/tabs/JWTLoginTab';
 
-function UserMenu(props) {
-	const dispatch = useDispatch();
-	const user = useSelector(({ auth }) => auth.user);
+const useStyles = makeStyles(theme => ({
+	root: {
+		background: `linear-gradient(to left, ${theme.palette.primary.dark} 0%, ${darken(
+			theme.palette.primary.dark,
+			0.5
+		)} 100%)`,
+		color: theme.palette.primary.contrastText
+	},
+	loginCard: {
+		justifyContent: 'center'
+	}
+}));
 
-	const [userMenu, setUserMenu] = useState(null);
+function Login() {
+	const classes = useStyles();
+	const [selectedTab, setSelectedTab] = useState(0);
 
-	const userMenuClick = event => {
-		setUserMenu(event.currentTarget);
-	};
-
-	const userMenuClose = () => {
-		setUserMenu(null);
-	};
+	function handleTabChange(event, value) {
+		setSelectedTab(value);
+	}
 
 	return (
-		<>
-			<Button className="min-h-40 min-w-40 px-0 md:px-16 py-0 md:py-6" onClick={userMenuClick}>
-				<div className="hidden md:flex flex-col mx-4 items-end">
-					<Typography component="span" className="normal-case font-bold flex">
-						{user.data.displayName}
-					</Typography>
-					<Typography className="text-11 capitalize" color="textSecondary">
-						{user.role.toString()}
-						{(!user.role || (Array.isArray(user.role) && user.role.length === 0)) && 'Guest'}
-					</Typography>
+		<div
+			className={clsx(
+				classes.root,
+				'flex flex-col flex-auto items-center justify-center flex-shrink-0 p-16 md:p-24'
+			)}
+		>
+			<FuseAnimate animation="transition.expandIn">
+				<div
+					className={clsx(
+						classes.loginCard,
+						'flex w-full max-w-400 md:max-w-3xl rounded-12 shadow-2xl overflow-hidden'
+					)}
+				>
+					<Card className="flex flex-col w-full max-w-sm items-center justify-center" square elevation={0}>
+						<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
+							<FuseAnimate delay={300}>
+								<div className="flex items-center mb-32">
+									<img className="logo-icon w-48" src="assets/images/logos/fuse.svg" alt="logo" />
+									<div className="border-l-1 mr-4 w-1 h-40" />
+									<div>
+										<Typography className="text-24 font-800 logo-text" color="inherit">
+											vGallery
+										</Typography>
+									</div>
+								</div>
+							</FuseAnimate>
+
+							<JWTLoginTab />
+						</CardContent>
+
+						<div className="flex flex-col items-center justify-center pb-32">
+							<div>
+								<span className="font-medium mr-8">Don't have an account?</span>
+								<Link className="font-medium" to="/register">
+									Register
+								</Link>
+							</div>
+							<Link className="font-medium mt-8" to="/">
+								Back to Dashboard
+							</Link>
+						</div>
+					</Card>
 				</div>
-
-				{user.data.photoURL ? (
-					<Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
-				) : (
-					<Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
-				)}
-			</Button>
-
-			<Popover
-				open={Boolean(userMenu)}
-				anchorEl={userMenu}
-				onClose={userMenuClose}
-				anchorOrigin={{
-					vertical: 'bottom',
-					horizontal: 'center'
-				}}
-				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'center'
-				}}
-				classes={{
-					paper: 'py-8'
-				}}
-			>
-				{!user.role || user.role.length === 0 ? (
-					<>
-						<MenuItem component={Link} to="/login" role="button">
-							<ListItemIcon className="min-w-40">
-								<Icon>lock</Icon>
-							</ListItemIcon>
-							<ListItemText primary="Login" />
-						</MenuItem>
-						<MenuItem component={Link} to="/register" role="button">
-							<ListItemIcon className="min-w-40">
-								<Icon>person_add</Icon>
-							</ListItemIcon>
-							<ListItemText primary="Register" />
-						</MenuItem>
-					</>
-				) : (
-					<>
-						<MenuItem component={Link} to="/pages/profile" onClick={userMenuClose} role="button">
-							<ListItemIcon className="min-w-40">
-								<Icon>account_circle</Icon>
-							</ListItemIcon>
-							<ListItemText primary="My Profile" />
-						</MenuItem>
-						<MenuItem component={Link} to="/apps/mail" onClick={userMenuClose} role="button">
-							<ListItemIcon className="min-w-40">
-								<Icon>mail</Icon>
-							</ListItemIcon>
-							<ListItemText primary="Inbox" />
-						</MenuItem>
-						<MenuItem
-							onClick={() => {
-								dispatch(logoutUser());
-								userMenuClose();
-							}}
-						>
-							<ListItemIcon className="min-w-40">
-								<Icon>exit_to_app</Icon>
-							</ListItemIcon>
-							<ListItemText primary="Logout" />
-						</MenuItem>
-					</>
-				)}
-			</Popover>
-		</>
+			</FuseAnimate>
+		</div>
 	);
 }
 
-export default UserMenu;
+export default Login;

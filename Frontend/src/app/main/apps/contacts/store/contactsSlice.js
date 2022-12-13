@@ -1,21 +1,18 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserData } from './userSlice';
+import * as apiSpec from '../../../../apiSpec';
 
-export const getContacts = createAsyncThunk('contactsApp/contacts/getContacts', async (routeParams, { getState }) => {
-	routeParams = routeParams || getState().contactsApp.contacts.routeParams;
-	const response = await axios.get('/api/contacts-app/contacts', {
-		params: routeParams
-	});
+export const getContacts = createAsyncThunk('contactsApp/contacts/getContacts', async ({ getState }) => {
+	const response = await axios.get(apiSpec.PROFILE);
 	const data = await response.data;
-
-	return { data, routeParams };
+	return { data };
 });
 
 export const addContact = createAsyncThunk(
 	'contactsApp/contacts/addContact',
 	async (contact, { dispatch, getState }) => {
-		const response = await axios.post('/api/contacts-app/add-contact', { contact });
+		const response = await axios.post(apiSpec.PROFILE, { contact });
 		const data = await response.data;
 
 		dispatch(getContacts());

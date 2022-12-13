@@ -6,6 +6,8 @@ import Formsy from 'formsy-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { submitRegister } from 'app/auth/store/registerSlice';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 
 function JWTRegisterTab(props) {
 	const dispatch = useDispatch();
@@ -13,6 +15,14 @@ function JWTRegisterTab(props) {
 
 	const [isFormValid, setIsFormValid] = useState(false);
 	const formRef = useRef(null);
+
+	const useStyles = makeStyles(theme => ({
+		jwtTab: {
+			marginTop: '50px'
+		}
+	}));
+
+	const classes = useStyles();
 
 	useEffect(() => {
 		if (register.error && (register.error.username || register.error.password || register.error.email)) {
@@ -42,12 +52,12 @@ function JWTRegisterTab(props) {
 				onValid={enableButton}
 				onInvalid={disableButton}
 				ref={formRef}
-				className="flex flex-col justify-center w-full"
+				className={clsx(classes.jwtTab, 'flex flex-col justify-center w-full')}
 			>
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
-					name="displayName"
+					name="name"
 					label="Display name"
 					validations={{
 						minLength: 4
@@ -71,17 +81,91 @@ function JWTRegisterTab(props) {
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
-					name="email"
-					label="Email"
-					validations="isEmail"
+					name="username"
+					label="Username"
+					validations={{
+						minLength: 4
+					}}
 					validationErrors={{
-						isEmail: 'Please enter a valid email'
+						minLength: 'Min character length is 4'
 					}}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
 								<Icon className="text-20" color="action">
-									email
+									account_circle
+								</Icon>
+							</InputAdornment>
+						)
+					}}
+					variant="outlined"
+					required
+				/>
+
+				<TextFieldFormsy
+					className="mb-16"
+					type="text"
+					name="email"
+					label="Email"
+					validations={{
+						minLength: 4
+					}}
+					validationErrors={{
+						minLength: 'Min character length is 4'
+					}}
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<Icon className="text-20" color="action">
+									mail
+								</Icon>
+							</InputAdornment>
+						)
+					}}
+					variant="outlined"
+					required
+				/>
+
+				<TextFieldFormsy
+					className="mb-16"
+					type="text"
+					name="city"
+					label="City"
+					validations={{
+						minLength: 4
+					}}
+					validationErrors={{
+						minLength: 'Min character length is 4'
+					}}
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<Icon className="text-20" color="action">
+									place
+								</Icon>
+							</InputAdornment>
+						)
+					}}
+					variant="outlined"
+					required
+				/>
+
+				<TextFieldFormsy
+					className="mb-16"
+					type="text"
+					name="country"
+					label="Country"
+					validations={{
+						minLength: 4
+					}}
+					validationErrors={{
+						minLength: 'Min character length is 4'
+					}}
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<Icon className="text-20" color="action">
+									map
 								</Icon>
 							</InputAdornment>
 						)
@@ -95,7 +179,7 @@ function JWTRegisterTab(props) {
 					type="password"
 					name="password"
 					label="Password"
-					validations="equalsField:password-confirm"
+					validations="equalsField:confirmedPassword"
 					validationErrors={{
 						equalsField: 'Passwords do not match'
 					}}
@@ -115,7 +199,7 @@ function JWTRegisterTab(props) {
 				<TextFieldFormsy
 					className="mb-16"
 					type="password"
-					name="password-confirm"
+					name="confirmedPassword"
 					label="Confirm Password"
 					validations="equalsField:password"
 					validationErrors={{

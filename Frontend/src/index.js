@@ -9,6 +9,7 @@ import './react-chartjs-2-defaults';
 import './styles/index.css';
 import App from 'app/App';
 import * as serviceWorker from './serviceWorker';
+import './config';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

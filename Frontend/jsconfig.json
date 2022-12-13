@@ -4,5 +4,8 @@
     },
     "include": [
         "src"
-    ]
+    ],
+    "typeAcquisition": {
+        "include": ["jquery"]
+      }
 }

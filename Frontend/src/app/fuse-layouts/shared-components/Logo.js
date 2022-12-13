@@ -32,7 +32,7 @@ function Logo() {
 	return (
 		<div className={clsx(classes.root, 'flex items-center')}>
 			<Typography className="text-16 mx-12 font-light logo-text" color="inherit">
-				Maguay Cloudbox
+				RetetaTa.ro
 			</Typography>
 		</div>
 	);

@@ -8,8 +8,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import React, { useState } from 'react';
 import AboutTab from './tabs/AboutTab';
-import PhotosVideosTab from './tabs/PhotosVideosTab';
-import TimelineTab from './tabs/TimelineTab';
+import EventsTab from './tabs/EventsTab.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
 	layoutHeader: {
@@ -26,6 +26,8 @@ function ProfilePage() {
 	const classes = useStyles();
 	const [selectedTab, setSelectedTab] = useState(0);
 
+	const user = useSelector(({ auth }) => auth.user);
+
 	function handleTabChange(event, value) {
 		setSelectedTab(value);
 	}
@@ -40,7 +42,7 @@ function ProfilePage() {
 				<div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
 					<div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
 						<FuseAnimate animation="transition.expandIn" delay={300}>
-							<Avatar className="w-96 h-96" src="assets/images/avatars/Velazquez.jpg" />
+							<Avatar className="w-96 h-96" />
 						</FuseAnimate>
 						<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 							<Typography
@@ -48,7 +50,7 @@ function ProfilePage() {
 								variant="h4"
 								color="inherit"
 							>
-								John Doe
+								{user.username}
 							</Typography>
 						</FuseAnimate>
 					</div>
@@ -79,27 +81,20 @@ function ProfilePage() {
 						classes={{
 							root: 'h-64'
 						}}
-						label="Timeline"
-					/>
-					<Tab
-						classes={{
-							root: 'h-64'
-						}}
 						label="About"
 					/>
 					<Tab
 						classes={{
 							root: 'h-64'
 						}}
-						label="Photos & Videos"
+						label="Events"
 					/>
 				</Tabs>
 			}
 			content={
 				<div className="p-16 sm:p-24">
-					{selectedTab === 0 && <TimelineTab />}
-					{selectedTab === 1 && <AboutTab />}
-					{selectedTab === 2 && <PhotosVideosTab />}
+					{selectedTab === 0 && <AboutTab />}
+					{selectedTab === 1 && <EventsTab />}
 				</div>
 			}
 		/>
