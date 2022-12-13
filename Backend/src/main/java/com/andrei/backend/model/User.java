@@ -1,8 +1,8 @@
 package com.andrei.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,12 +13,14 @@ import java.util.Collection;
 @Entity
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String Nume;
     private String Prenume;
+    @Column(unique = true)
     private String username;
-//    @JsonIgnore
+    @JsonIgnore
+    @Column(unique = true)
     private String mail;
     private String phoneNumber;
     private String password;
@@ -57,7 +59,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // este nevoie pentru a autoriza update-ul
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // este nevoie pentru a autoriza update-ul
     public long getId() {
         return id;
     }
@@ -74,14 +76,15 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-//    @JsonProperty("mail")
+    @JsonIgnore
     public String getMail() {
         return mail;
     }
-//    @JsonIgnore
+    @JsonIgnore
     public void setMail(String mail) {
         this.mail = mail;
     }
+    @JsonIgnore
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -90,6 +93,7 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // este nevoie pentru a autoriza update-ul
     public String getPassword() {
         return password;
     }
@@ -115,26 +119,31 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
     @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public boolean isEnabled() {
         return true;
     }
