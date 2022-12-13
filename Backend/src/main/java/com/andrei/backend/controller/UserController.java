@@ -63,7 +63,7 @@ public class UserController {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwtToken = authHeader.substring(7);
             username = jwtTokenUtil.extractUsername(jwtToken);
-            if (username != null) {
+            if (username != null && !jwtTokenUtil.isTokenExpired(jwtToken)) {
                 User user = (User) userService.loadUserByUsername(username);
                 new_access_token = jwtTokenUtil.generateToken(user, 10);
                 new_refresh_token = jwtTokenUtil.generateToken(user, 12*60);
