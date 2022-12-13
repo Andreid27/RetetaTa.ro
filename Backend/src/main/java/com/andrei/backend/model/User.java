@@ -18,6 +18,7 @@ public class User implements UserDetails {
     private String Nume;
     private String Prenume;
     private String username;
+//    @JsonIgnore
     private String mail;
     private String phoneNumber;
     private String password;
@@ -73,14 +74,14 @@ public class User implements UserDetails {
         this.username = username;
     }
 
+//    @JsonProperty("mail")
     public String getMail() {
         return mail;
     }
-
+//    @JsonIgnore
     public void setMail(String mail) {
         this.mail = mail;
     }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -115,7 +116,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
     @Override

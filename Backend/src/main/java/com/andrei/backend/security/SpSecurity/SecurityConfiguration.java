@@ -71,8 +71,8 @@ public class SecurityConfiguration{
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
             @Override
-            public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-                return userService.loadUserByUsername(mail);
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                return userService.loadUserByUsername(username);
             }
         };
     }
