@@ -1,6 +1,8 @@
 import FuseUtils from '@fuse/utils/FuseUtils';
+import { loginSuccess } from 'app/auth/store/loginSlice';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { useDispatch } from 'react-redux';
 import * as apiSpec from '../../apiSpec';
 /* eslint-disable camelcase */
 

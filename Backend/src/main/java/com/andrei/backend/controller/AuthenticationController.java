@@ -53,6 +53,7 @@ public class AuthenticationController {
 
         String new_access_token = null;
         String new_refresh_token = null;
+        User user = null;
         final String authHeader = request.getHeader(AUTHORIZATION);
         final String username;
         final String jwtToken;
@@ -60,12 +61,12 @@ public class AuthenticationController {
             jwtToken = authHeader.substring(7);
             username = jwtTokenUtil.extractUsername(jwtToken);
             if (username != null && !jwtTokenUtil.isTokenExpired(jwtToken)) {
-                User user = (User) userService.loadUserByUsername(username);
+                user = (User) userService.loadUserByUsername(username);
                 new_access_token = jwtTokenUtil.generateToken(user, 10);
                 new_refresh_token = jwtTokenUtil.generateToken(user, 12 * 60);
             }
         }
-        return ResponseEntity.ok(new AuthenticationResponese(new_access_token, new_refresh_token));
+        return ResponseEntity.ok("{\"access_token\":"+"\""+new_refresh_token+"\"}");
     }
 
 
