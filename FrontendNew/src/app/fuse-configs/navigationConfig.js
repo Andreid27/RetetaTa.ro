@@ -28,12 +28,12 @@ const navigationConfig = [
 		url: '/apps/contacts/all'
 	},
 	{
-		id: 'events',
-		title: 'Events',
-		translate: 'Event Management',
+		id: 'Retete',
+		title: 'Retete',
+		translate: 'Retete',
 		type: 'item',
 		icon: 'account_box',
-		url: '/apps/event_management/all'
+		url: '/apps/e-commerce/retete'
 	},
 	{
 		id: 'event',

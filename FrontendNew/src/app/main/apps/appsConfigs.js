@@ -7,6 +7,7 @@ import EventConfig from './event-app/EventConfig';
 import HomeAppConfig from './home/HomeAppConfig';
 import StandAppConfig from './stand_management/StandAppConfig';
 import FeedbacksAppConfig from './feedbacks-app/FeedbacksAppConfig';
+import ECommerceAppConfig from './e-commerce/ECommerceAppConfig';
 
 // import AnalyticsDashboardAppConfig from './dashboards/analytics/AnalyticsDashboardAppConfig';
 // import ProjectDashboardAppConfig from './dashboards/project/ProjectDashboardAppConfig';
@@ -17,6 +18,13 @@ import FeedbacksAppConfig from './feedbacks-app/FeedbacksAppConfig';
 // import TodoAppConfig from './todo/TodoAppConfig';
 
 //delete here
-const appsConfigs = [ContactsAppConfig, EventAppConfig, EventConfig, HomeAppConfig, StandAppConfig, FeedbacksAppConfig];
+const appsConfigs = [
+    ContactsAppConfig,
+    ECommerceAppConfig, 
+    EventAppConfig, 
+    EventConfig, 
+    HomeAppConfig, 
+    StandAppConfig, 
+    FeedbacksAppConfig];
 
 export default appsConfigs;
