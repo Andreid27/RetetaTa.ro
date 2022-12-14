@@ -44,7 +44,7 @@ public class AuthenticationController {
         final String refresh_token = jwtTokenUtil.generateToken(user,12*60);
 
 
-        return ResponseEntity.ok(new AuthenticationResponese(access_token,refresh_token));
+        return ResponseEntity.ok(new AuthenticationResponese(access_token,refresh_token,user));
     }
 
 

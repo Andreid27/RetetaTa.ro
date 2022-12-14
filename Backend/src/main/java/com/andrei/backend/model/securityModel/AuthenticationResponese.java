@@ -1,19 +1,34 @@
 package com.andrei.backend.model.securityModel;
 
+import com.andrei.backend.model.User;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class AuthenticationResponese {
-    private final String access_token;
-    private final String refresh_token;
+    private String role="admin";
+    private Map<String,Object> data = new HashMap<>();
 
-    public AuthenticationResponese(String access_token, String refresh_token) {
-        this.access_token = access_token;
-        this.refresh_token = refresh_token;
+    public AuthenticationResponese(String access_token, String refresh_token, User user) {
+        data.put("access_token", access_token);
+        data.put("refresh_token", refresh_token);
+        data.put("displayName", user.getUsername());
+        data.put("shortcuts", new ArrayList());
+        data.put("email",user.getMail());
     }
 
-    public String getAccess_token() {
-        return access_token;
+
+    public AuthenticationResponese(String access_token,String refresh_token) {
+        data.put("access_token", access_token);
+        data.put("refresh_token", refresh_token);
     }
 
-    public String getRefresh_token() {
-        return refresh_token;
+    public String getRole() {
+        return role;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
     }
 }
