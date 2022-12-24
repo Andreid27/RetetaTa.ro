@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
+import * as apiSpec from './../../../../apiSpec';
 
 export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', async params => {
 	const response = await axios.get('/api/e-commerce-app/product', { params });
@@ -27,6 +28,8 @@ const productSlice = createSlice({
 					// id: FuseUtils.generateGUID(), // fie daca există deja este adăugat, fie este blank
 					denumire: '',
 					descriere: '',
+					priceRange:1,
+					calorii:0,
 					ingredientCantitate: []
 				}
 			})

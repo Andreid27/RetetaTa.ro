@@ -92,6 +92,14 @@ function ReteteTable(props) {
 		setRowsPerPage(event.target.value);
 	}
 
+	function priceRangeCalculator(priceRange){
+		let priceString = "";
+		for(let i=0; i<priceRange; i++){
+			priceString+="$";
+		}
+		return priceString;
+	}
+
 	return (
 		<div className="w-full flex flex-col">
 			<FuseScrollbars className="flex-grow overflow-x-auto">
@@ -175,12 +183,15 @@ function ReteteTable(props) {
 											{n.descriere}
 										</TableCell>
 
-										{/*<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-											<span>$</span>
-											{n.priceTaxIncl}
+										<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
+										{priceRangeCalculator(n.priceRange)}
+											{/* {} */}
 										</TableCell>
 
-										<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
+										<TableCell className="p-4 md:p-16 truncate" component="th" scope="row" align="right">
+											{n.calorii}
+										</TableCell>
+										{/*<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
 											{n.quantity}
 											<i
 												className={clsx(

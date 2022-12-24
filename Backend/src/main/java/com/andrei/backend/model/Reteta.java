@@ -23,6 +23,11 @@ public class Reteta {
     @Column(name = "denumire", unique = true)
     private String denumire;
 
+    @Column(columnDefinition = "tinyint default 1")
+    private byte priceRange;
+
+    private short calorii;
+
     @Column(name = "descriere")
     private String descriere;
 
@@ -39,6 +44,9 @@ public class Reteta {
             joinColumns = { @JoinColumn(name = "reteta_id") },
             inverseJoinColumns = { @JoinColumn(name = "ingredient_cantitate_id") })
     private Set<IngredientCantitate> ingredientCantitate = new HashSet<>();
+
+
+
 
     public Reteta() {}
 
@@ -84,6 +92,23 @@ public class Reteta {
 
     public void setAutor(User autor) {
         this.autor = autor;
+    }
+
+    public byte getPriceRange() {
+        return priceRange;
+    }
+
+    public void setPriceRange(byte priceRange) {
+        this.priceRange = priceRange;
+    }
+
+
+    public short getCalorii() {
+        return calorii;
+    }
+
+    public void setCalorii(short calorii) {
+        this.calorii = calorii;
     }
 
     public Set<IngredientCantitate> getIngredientCantitate() {

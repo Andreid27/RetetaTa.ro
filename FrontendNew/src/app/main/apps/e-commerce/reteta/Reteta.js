@@ -21,6 +21,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { saveProduct, newProduct, getProduct } from '../store/productSlice';
 import reducer from '../store';
+import Ingrediente from './IngredeinteFields';
+import IngredeinteFields from './IngredeinteFields';
 
 const useStyles = makeStyles(theme => ({
 	productImageFeaturedStar: {
@@ -57,6 +59,41 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
+
+let priceRangeValues = [
+	{
+	value:1, 
+	label:"$"
+	},
+	{
+	value:2, 
+	label:"$$"
+	},
+	{
+	value:3, 
+	label:"$$$"
+	},
+	{
+	value:4, 
+	label:"$$$$"
+	},
+	{
+	value:5, 
+	label:"$$$$$"
+	}
+
+]
+
+const priceMap = new Map([
+	['1', '$'],
+	['2', '$$'],
+	['3', '$$$'],
+	['4', '$$$$'],
+	['5', '$$$$$']
+  ])
+
+  const arr = Array.from(priceMap)
+
 function Reteta(props) {
 	const dispatch = useDispatch();
 	const product = useSelector(({ eCommerceApp }) => eCommerceApp.product);
@@ -92,14 +129,17 @@ function Reteta(props) {
 	}
 
 	function handleChipChange(value, name) {
+		console.log(value, name)
 		setForm(
 			_.set(
 				{ ...form },
 				name,
-				value.map(item => item.value)
+				value.value
 			)
 		);
 	}
+
+	
 
 	function setFeaturedImage(id) {
 		setForm(_.set({ ...form }, 'featuredImageId', id));
@@ -258,11 +298,10 @@ function Reteta(props) {
 
 								<FuseChipSelect
 									className="mt-8 mb-24"
-									value={form.ingredientCantitate.map(item => ({
-										value: item,
-										label: item
-									}))}
-									onChange={value => handleChipChange(value, 'pret')}
+									value={priceRangeValues.find(item =>item.value==form.priceRange)}
+									options={priceRangeValues}
+									onChange={value => {console.log(value);
+										 handleChipChange(value, 'priceRange')}}
 									placeholder="Selectați zona de preț"
 									textFieldProps={{
 										label: 'Pret',
@@ -271,69 +310,21 @@ function Reteta(props) {
 										},
 										variant: 'outlined'
 									}}
-									// isMulti
 								/>
-{/* 
-								<FuseChipSelect
+								<TextField
 									className="mt-8 mb-16"
-									value={form.tags.map(item => ({
-										value: item,
-										label: item
-									}))}
-									onChange={value => handleChipChange(value, 'tags')}
-									placeholder="Select multiple tags"
-									textFieldProps={{
-										label: 'Tags',
-										InputLabelProps: {
-											shrink: true
-										},
-										variant: 'outlined'
-									}}
-									isMulti
-								/> */}
+									id="calorii"
+									name="calorii"
+									label="Calorii"
+									value={form.calorii}
+									onChange={handleChange}
+									type="number"
+									variant="outlined"
+									autoFocus
+									fullWidth
+								/>
 							</div>
 						)}
-						{/* {tabValue === 1 && (
-							<div>
-								<div className="flex justify-center sm:justify-start flex-wrap -mx-8">
-									<label
-										htmlFor="button-file"
-										className={clsx(
-											classes.productImageUpload,
-											'flex items-center justify-center relative w-128 h-128 rounded-8 mx-8 mb-16 overflow-hidden cursor-pointer shadow-1 hover:shadow-5'
-										)}
-									>
-										<input
-											accept="image/*"
-											className="hidden"
-											id="button-file"
-											type="file"
-											onChange={handleUploadChange}
-										/>
-										<Icon fontSize="large" color="action">
-											cloud_upload
-										</Icon>
-									</label>
-									{form.images.map(media => (
-										<div
-											onClick={() => setFeaturedImage(media.id)}
-											onKeyDown={() => setFeaturedImage(media.id)}
-											role="button"
-											tabIndex={0}
-											className={clsx(
-												classes.productImageItem,
-												'flex items-center justify-center relative w-128 h-128 rounded-8 mx-8 mb-16 overflow-hidden cursor-pointer shadow-1 hover:shadow-5',
-												media.id === form.featuredImageId && 'featured'
-											)}
-											key={media.id}
-										>
-											<Icon className={classes.productImageFeaturedStar}>star</Icon>
-											<img className="max-w-none w-auto h-full" src={media.url} alt="product" />
-										</div>
-									))}
-								</div>
-							</div>
-						)} */}
 						{tabValue === 1 && (
 							<div>
 								<TextField
@@ -348,118 +339,10 @@ function Reteta(props) {
 									autoFocus
 									fullWidth
 								/>
- 							 {[...Array(form.ingredienteNumber)].map((x, i) =>
-								<TextField
-									className="mt-8 mb-16"
-									label="Tax Included Price"
-									id="ingredient"
-									name="ingredient"
-									key={i}
-									value={form.ingredient}
-									onChange={handleChange}
-									InputProps={{
-										startAdornment: <InputAdornment position="start">$</InputAdornment>
-									}}
-									type="number"
-									variant="outlined"
-									fullWidth
-								/>
-								)} 
+								<IngredeinteFields numar={5} form={form} numarIngrediente={3}></IngredeinteFields>
 								{/* de facut pentru fiecare ingredient - cantitate.... */}
 							</div>
 						)}
-						{/* {tabValue === 3 && (
-							<div>
-								<TextField
-									className="mt-8 mb-16"
-									required
-									label="SKU"
-									autoFocus
-									id="sku"
-									name="sku"
-									value={form.sku}
-									onChange={handleChange}
-									variant="outlined"
-									fullWidth
-								/>
-
-								<TextField
-									className="mt-8 mb-16"
-									label="Quantity"
-									id="quantity"
-									name="quantity"
-									value={form.quantity}
-									onChange={handleChange}
-									variant="outlined"
-									type="number"
-									fullWidth
-								/>
-							</div>
-						)}
-						{tabValue === 4 && (
-							<div>
-								<div className="flex -mx-4">
-									<TextField
-										className="mt-8 mb-16 mx-4"
-										label="Width"
-										autoFocus
-										id="width"
-										name="width"
-										value={form.width}
-										onChange={handleChange}
-										variant="outlined"
-										fullWidth
-									/>
-
-									<TextField
-										className="mt-8 mb-16 mx-4"
-										label="Height"
-										id="height"
-										name="height"
-										value={form.height}
-										onChange={handleChange}
-										variant="outlined"
-										fullWidth
-									/>
-
-									<TextField
-										className="mt-8 mb-16 mx-4"
-										label="Depth"
-										id="depth"
-										name="depth"
-										value={form.depth}
-										onChange={handleChange}
-										variant="outlined"
-										fullWidth
-									/>
-								</div>
-
-								<TextField
-									className="mt-8 mb-16"
-									label="Weight"
-									id="weight"
-									name="weight"
-									value={form.weight}
-									onChange={handleChange}
-									variant="outlined"
-									fullWidth
-								/>
-
-								<TextField
-									className="mt-8 mb-16"
-									label="Extra Shipping Fee"
-									id="extraShippingFee"
-									name="extraShippingFee"
-									value={form.extraShippingFee}
-									onChange={handleChange}
-									variant="outlined"
-									InputProps={{
-										startAdornment: <InputAdornment position="start">$</InputAdornment>
-									}}
-									fullWidth
-								/>
-							</div>
-						)} */}
 					</div>
 				)
 			}
