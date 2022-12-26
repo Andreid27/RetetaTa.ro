@@ -1,7 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 import * as apiSpec from './../../../../apiSpec';
+import { useSelector } from 'react-redux';
 
 export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', async params => {
 	const response = await axios.get('/api/e-commerce-app/product', { params });
@@ -11,7 +12,23 @@ export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', as
 });
 
 export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', async product => {
-	const response = await axios.post('/reteta', product);
+	let ingredientCantitateFormat = []
+	for(let i=0;i<product.ingredientCantitate.length;i++){
+		let ingredient = {
+			ingredient:{
+				id: product.ingredientCantitate[i][0]
+			},
+			cantitate: product.ingredientCantitate[i][1]
+		}
+		ingredientCantitateFormat.push(ingredient);
+	}
+
+	const response = await axios.post('/reteta',{ 
+	denumire: product.denumire,
+    descriere: product.descriere,
+	ingredientCantitate: ingredientCantitateFormat
+})
+
 	const data = await response.data;
 
 	return data;
