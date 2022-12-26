@@ -330,7 +330,7 @@ function Reteta(props) {
 									autoFocus
 									fullWidth
 								/>
-								<IngredeinteFields numar={5} form={form} numarIngrediente={3} handleForm={setFormIngrediente}></IngredeinteFields>
+								<IngredeinteFields numar={5} form={form} numarIngrediente={form.ingredienteNumber} handleForm={setFormIngrediente}></IngredeinteFields>
 								{/* de facut pentru fiecare ingredient - cantitate.... */}
 							</div>
 						)}

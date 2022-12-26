@@ -47,7 +47,8 @@ const productSlice = createSlice({
 					descriere: '',
 					priceRange:1,
 					calorii:0,
-					ingredientCantitate: []
+					ingredientCantitate: [],
+					ingredienteNumber:1
 				}
 			})
 		}

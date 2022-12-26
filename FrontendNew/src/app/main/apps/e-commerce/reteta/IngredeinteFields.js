@@ -75,9 +75,12 @@ function IngredeinteFields(props) {
 
 
     useEffect(() =>{
-        createIngrediente(props)
         dispatch(getIngrediente())
     },[])
+
+    useEffect(() =>{
+        createIngrediente(props)
+    },[props.numarIngrediente])
 
 
 
@@ -115,38 +118,45 @@ function IngredeinteFields(props) {
         let returnText = [];
         for(let index=0; index<form.ingredientCantitate.length;index++){
             returnText.push( 
-            <Container key={index} width={100} margin={0}>
-            <TextField
-            className="mt-8 mb-16"
-            required
-            label="Denumire Ingredient"
-            key={index}
-            autoFocus
-            id="denumire_ingredient"
-            name="denumire_ingredient"
-            value={form.ingredientCantitate[index][0]}
-            // options={ingrediente.map((ingredient) =>({
-            //     value: ingredient.id,
-            //     label: ingredient.denumire
-            // }))} // DE CONTINUAT CU OPTIONS DE AICI
-            options={ingrediente}
-            onChange={(event) => {modifyIngrediente('ingredientId', event.target.value, index)}}
-            variant="outlined"
-            style = {{width: 600}}
-        />
+            <Container key={index} width={100} margin={0} >
+                <FuseChipSelect
+                className="mt-8 mb-16"
+                required
+                label="Denumire Ingredient"
+                key={index}
+                autoFocus
+                id="denumire_ingredient"
+                name="denumire_ingredient"
+                value={ingrediente.find(item =>item.value==form.ingredientCantitate[index][0])}
+                options={ingrediente.map((ingredient) =>({
+                    value: ingredient.id,
+                    label: ingredient.denumire
+                }))} 
+                // options={ingrediente}
+                onChange={(event) => {console.log(event.value)
+                    modifyIngrediente('ingredientId', event.value, index)}}
+                textFieldProps={{
+                    label: 'Pret',
+                    InputLabelProps: {
+                        shrink: true
+                    },
+                    variant: 'outlined'
+                }}
+                style={{ width: 400 }}
+                />
 
-        <TextField
-            className="mt-8 mb-16"
-            id="cantitate"
-            name="cantitate"
-            label="Cantitate"
-            value={form.ingredientCantitate[index][1]}
-            onChange={(event) => {modifyIngrediente('cantitate', event.target.value, index)}}
-            type="number"
-            variant="outlined"
-            autoFocus
-            style = {{width: 200, paddingLeft:70}}
-        />
+            <TextField
+                className="mt-8 mb-16"
+                id="cantitate"
+                name="cantitate"
+                label="Cantitate"
+                value={form.ingredientCantitate[index][1]}
+                onChange={(event) => {modifyIngrediente('cantitate', event.target.value, index)}}
+                type="number"
+                variant="outlined"
+                autoFocus
+                style = {{width: 200, paddingLeft:70}}
+            />
 
         </Container>
 
