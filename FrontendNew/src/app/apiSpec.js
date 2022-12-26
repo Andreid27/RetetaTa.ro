@@ -1,5 +1,6 @@
 export const LOGIN = '/login';
 export const PROFILE = '/user';
+export const RETETA = '/reteta';
 export const GET_ALL_EVENTS = '/api/5/events';
 export const USER = '/api/5/users';
 export const REGISTER = '/api/register';

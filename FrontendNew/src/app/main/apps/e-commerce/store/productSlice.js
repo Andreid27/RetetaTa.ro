@@ -5,7 +5,8 @@ import * as apiSpec from './../../../../apiSpec';
 import { useSelector } from 'react-redux';
 
 export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', async params => {
-	const response = await axios.get('/api/e-commerce-app/product', { params });
+	console.log(params)
+	const response = await axios.get(apiSpec.RETETA +'/'+ params.productId);
 	const data = await response.data;
 
 	return data;
@@ -23,9 +24,10 @@ export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', 
 		ingredientCantitateFormat.push(ingredient);
 	}
 
-	const response = await axios.post('/reteta',{ 
+	const response = await axios.post(apiSpec.RETETA,{ 
 	denumire: product.denumire,
     descriere: product.descriere,
+	priceRange: product.priceRange,
 	ingredientCantitate: ingredientCantitateFormat
 })
 
