@@ -1,17 +1,25 @@
 package com.andrei.backend.controller;
 
 import com.andrei.backend.model.Reteta;
+import com.andrei.backend.model.User;
 import com.andrei.backend.service.RetetaService;
+import com.andrei.backend.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 public class RetetaController {
 
     @Autowired
     RetetaService retetaService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/retete")
     public List<Reteta> getAllRetete() {
@@ -24,8 +32,11 @@ public class RetetaController {
     }
 
     @PostMapping("/reteta")
-    public void addReteta(@RequestBody Reteta reteta){
-        retetaService.addReteta(reteta);
+    public void addReteta(@RequestBody Reteta reteta, HttpServletRequest request){
+        String authHeader = request.getHeader(AUTHORIZATION);
+        User user = userService.getMyUser(authHeader);
+        reteta.setAutor(user);
+        retetaService.addReteta(reteta, request);
     }
 
     @PutMapping("/reteta")
