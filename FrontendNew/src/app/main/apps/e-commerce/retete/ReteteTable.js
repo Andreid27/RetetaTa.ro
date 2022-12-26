@@ -64,7 +64,7 @@ function ReteteTable(props) {
 	}
 
 	function handleClick(item) {
-		props.history.push(`/apps/e-commerce/products/${item.id}/${item.handle}`);
+		props.history.push(`/apps/e-commerce/products/${item.id}`);
 	}
 
 	function handleCheck(event, id) {

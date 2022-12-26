@@ -1,11 +1,7 @@
-import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseChipSelect from '@fuse/core/FuseChipSelect';
-import FuseLoading from '@fuse/core/FuseLoading';
-import FusePageCarded from '@fuse/core/FusePageCarded';
 import { useForm, useDeepCompareEffect } from '@fuse/hooks';
-import FuseUtils from '@fuse/utils';
 import _ from '@lodash';
-import { Box, Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 import withReducer from 'app/store/withReducer';
@@ -15,7 +11,6 @@ import { useParams } from 'react-router';
 import { useTheme } from 'styled-components';
 import reducer from '../store';
 import { getIngrediente, selectIngrediente } from '../store/ingredienteSlice';
-import { getProduct, getWorkingNewProduct, newProduct, selectProduct } from '../store/productSlice';
 
 
 let ingredientId = 0;

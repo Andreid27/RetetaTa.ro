@@ -23,6 +23,7 @@ import { saveProduct, newProduct, getProduct } from '../store/productSlice';
 import reducer from '../store';
 import Ingrediente from './IngredeinteFields';
 import IngredeinteFields from './IngredeinteFields';
+import RetetaView from './RetetaView';
 
 const useStyles = makeStyles(theme => ({
 	productImageFeaturedStar: {
@@ -182,7 +183,10 @@ function Reteta(props) {
 	}
 
 	if ((!product || (product && routeParams.productId !== product.id)) && routeParams.productId !== 'new') {
-		return <FuseLoading />;
+
+		return <RetetaView/>
+
+		// return <FuseLoading />;
 	}
 
 	return (
