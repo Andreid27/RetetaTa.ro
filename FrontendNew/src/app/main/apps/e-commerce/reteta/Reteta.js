@@ -184,7 +184,7 @@ function Reteta(props) {
 
 	if ((!product || (product && routeParams.productId !== product.id)) && routeParams.productId !== 'new') {
 
-		return <RetetaView/>
+		return <RetetaView reteta={product}/>
 
 		// return <FuseLoading />;
 	}

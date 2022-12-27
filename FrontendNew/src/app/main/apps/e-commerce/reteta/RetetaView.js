@@ -1,93 +1,99 @@
-import { Button, makeStyles, TableCell, Typography } from '@material-ui/core';
+import FuseAnimate from '@fuse/core/FuseAnimate';
+import FuseChipSelect from '@fuse/core/FuseChipSelect';
+import FusePageCarded from '@fuse/core/FusePageCarded';
+import { Box, Button, Collapse, Icon, IconButton, makeStyles, TableBody, TableCell, TableRow, TextField, Typography, useTheme } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { Column, Table } from 'react-virtualized';
+import { selectProductById } from '../store/productsSlice';
+import IngredienteInfoTabel from './IngredienteInfoTable';
 
 
-
-
-const useStyles = makeStyles({
-    recipeContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      margin: '20px 0',
-    },
-    recipeTitle: {
-      fontSize: '2rem',
-      fontWeight: 'bold',
-    },
-    ingredientTable: {
-      width: '80%',
-      margin: '20px 0',
-    },
-    instructionList: {
-      width: '80%',
-      margin: '20px 0',
-    },
-  });
 
 const RetetaView = () => {
-  const [expanded, setExpanded] = useState(false);
-  const recipe = {
-    name: 'Spaghetti Bolognese',
-    ingredients: [
-      { name: 'spaghetti', amount: '8 oz' },
-      { name: 'ground beef', amount: '1 lb' },
-      { name: 'diced tomatoes', amount: '28 oz can' },
-      { name: 'tomato sauce', amount: '15 oz can' },
-      { name: 'onion', amount: '1' },
-      { name: 'garlic', amount: '3 cloves' },
-      { name: 'olive oil', amount: '2 tbsp' },
-      { name: 'oregano', amount: '1 tsp' },
-      { name: 'basil', amount: '1 tsp' },
-      { name: 'salt', amount: '1 tsp' },
-      { name: 'pepper', amount: '1 tsp' },
-    ],
-    instructions: [
-      'Bring a large pot of salted water to a boil and cook spaghetti according to package instructions.',
-      'In a separate pan, heat the olive oil over medium heat. Add the diced onion and minced garlic and cook until the onion is translucent.',
-      'Add the ground beef to the pan and cook until browned, breaking it up into small pieces as it cooks.',
-      'Stir in the diced tomatoes, tomato sauce, oregano, basil, salt, and pepper. Reduce heat to low and simmer for 20 minutes.',
-      'Drain the spaghetti and return it to the pot. Add the meat sauce and toss to combine.',
-      'Serve the spaghetti bolognese hot, garnished with grated Parmesan cheese and fresh basil, if desired.',
-    ],
-  };
+  const theme = useTheme();
+  const routeParams = useParams();
+	const reteta = useSelector(({ eCommerceApp }) => eCommerceApp.product);
+	const user = useSelector(({ auth }) => auth.user.data);
 
-  return (
-    <div>
-      <Typography variant="h4" gutterBottom>
-        {recipe.name}
-      </Typography>
-      <Button onClick={() => setExpanded(!expanded)}>
-        {expanded ? 'Hide' : 'Show'} Ingredients
-      </Button>
-      {expanded && (
-        <Table>
-          <Column
-            label="Ingredient"
-            dataKey="name"
-            width={200}
-            cellRenderer={({ cellData }) => <TableCell>{cellData}</TableCell>}
-          />
-          <Column
-            label="Amount"
-            dataKey="amount"
-            width={100}
-            cellRenderer={({ cellData }) => <TableCell>{cellData}</TableCell>}
-          />
-        </Table>
-      )}
-      <Button onClick={() => setExpanded(!expanded)}>
-        {expanded ? 'Hide' : 'Show'} Instructions
-      </Button>
-      {expanded && (
-        <ol>
-          {recipe.instructions.map(instruction => (
-            <li key={instruction}>{instruction}</li>
-          ))}
-        </ol>
-      )}
-    </div>);
+
+
+
+
+	return (
+		<FusePageCarded
+			classes={{
+				toolbar: 'p-0',
+				header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
+			}}
+			header={
+        reteta && (
+					<div className="flex flex-1 w-full items-center justify-between">
+						<div className="flex flex-col items-start max-w-full">
+							<FuseAnimate animation="transition.slideRightIn" delay={300}>
+								<Typography
+									className="normal-case flex items-center sm:mb-12"
+									component={Link}
+									role="button"
+									to="/apps/e-commerce/retete"
+									color="inherit"
+								>
+									<Icon className="text-20">
+										{theme.direction === 'ltr' ? 'arrow_back' : 'arrow_forward'}
+									</Icon>
+									<span className="mx-4">Rețete</span>
+								</Typography>
+							</FuseAnimate>
+
+							<div className="flex items-center max-w-full">
+								<div className="flex flex-col min-w-0 mx-8 sm:mc-16">
+									<FuseAnimate animation="transition.slideLeftIn" delay={300}>
+										<Typography className="text-16 sm:text-20 truncate">
+											
+										</Typography>
+									</FuseAnimate>
+									<FuseAnimate animation="transition.slideLeftIn" delay={300}>
+										<Typography variant="caption">Detalii rețetă {reteta.denumire}</Typography>
+									</FuseAnimate>
+								</div>
+							</div>
+						</div>
+            {reteta.autor.username === user.displayName &&(
+            <FuseAnimate animation="transition.slideRightIn" delay={300}>
+							<Button
+								className="whitespace-no-wrap normal-case"
+								variant="contained"
+								color="secondary"
+								// disabled={!canBeSubmitted()}
+								// onClick={() => submitProduct()}
+							>
+								Edit
+							</Button>
+						</FuseAnimate>)}
+					</div>)
+			}
+      
+			content={
+        reteta && (
+					<div className="p-16 sm:p-24 max-w-2xl">
+							<div>
+              <Box margin={2}>
+                <Typography variant="h3" align='center'>{reteta.denumire}</Typography>
+              </Box>
+              <Box margin={1}>
+                <Typography variant="h5">Descriere</Typography>
+                <Typography variant="body1" style={{marginTop:10 , marginBottom:5}}>{reteta.descriere} </Typography>
+              </Box>
+
+              <IngredienteInfoTabel ingrediente={reteta.ingredientCantitate}/>
+
+							</div>
+					</div>
+  )}
+			innerScroll
+		/>
+	);
 }
 
 export default RetetaView;
