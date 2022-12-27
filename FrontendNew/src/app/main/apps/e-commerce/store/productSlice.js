@@ -36,6 +36,15 @@ export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', 
 	return data;
 });
 
+
+export const deleteReteta = createAsyncThunk('eCommerceApp/product/deleteReteta', async params => {
+	console.log(params)
+	const response = await axios.delete(apiSpec.RETETA +'/'+ params.productId);
+	const data = await response.data;
+
+	return data;
+});
+
 const productSlice = createSlice({
 	name: 'eCommerceApp/product',
 	initialState: null,

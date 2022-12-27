@@ -2,10 +2,12 @@ import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseChipSelect from '@fuse/core/FuseChipSelect';
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import { Box, Button, Collapse, Icon, IconButton, makeStyles, TableBody, TableCell, TableRow, TextField, Typography, useTheme } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { Column, Table } from 'react-virtualized';
+import { deleteReteta } from '../store/productSlice';
 import { selectProductById } from '../store/productsSlice';
 import IngredienteInfoTabel from './IngredienteInfoTable';
 
@@ -16,8 +18,14 @@ const RetetaView = () => {
   const routeParams = useParams();
 	const reteta = useSelector(({ eCommerceApp }) => eCommerceApp.product);
 	const user = useSelector(({ auth }) => auth.user.data);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
 
+  function deleteThisReteta(){
+    dispatch(deleteReteta(routeParams));
+    history.push('/apps/e-commerce/retete');
+  }
 
 
 
@@ -61,16 +69,27 @@ const RetetaView = () => {
 						</div>
             {reteta.autor.username === user.displayName &&(
             <FuseAnimate animation="transition.slideRightIn" delay={300}>
-							<Button
-								className="whitespace-no-wrap normal-case"
-								variant="contained"
-								color="secondary"
-								// disabled={!canBeSubmitted()}
-								// onClick={() => submitProduct()}
-							>
-								Edit
-							</Button>
-						</FuseAnimate>)}
+              <div>
+                <Button
+                  className="whitespace-no-wrap normal-case"
+                  variant="contained"
+                  color="secondary"
+                  // disabled={!canBeSubmitted()}
+                  // onClick={() => submitProduct()}
+                >
+                  Edit
+                </Button>
+                <Button
+                  className="whitespace-no-wrap normal-case"
+                  color="secondary"
+                  onClick={() => deleteThisReteta()}
+                >
+                  <DeleteIcon/>
+                </Button>
+                
+              </div>
+						</FuseAnimate>
+            )}
 					</div>)
 			}
       
