@@ -92,10 +92,10 @@ function ReteteTable(props) {
 		setRowsPerPage(event.target.value);
 	}
 
-	function priceRangeCalculator(priceRange){
-		let priceString = "";
-		for(let i=0; i<priceRange; i++){
-			priceString+="$";
+	function priceRangeCalculator(priceRange) {
+		let priceString = '';
+		for (let i = 0; i < priceRange; i++) {
+			priceString += '$';
 		}
 		return priceString;
 	}
@@ -117,11 +117,11 @@ function ReteteTable(props) {
 							data,
 							[
 								o => {
-									console.log(o);
-									console.log(order);
+									// console.log(o);
+									// console.log(order);
 									switch (order.id) {
 										case 'categories': {
-											console.log(o.categories[0])
+											console.log(o.categories[0]);
 											return o.categories[0];
 										}
 										default: {
@@ -154,7 +154,7 @@ function ReteteTable(props) {
 											/>
 										</TableCell>
 
-										 {/* <TableCell
+										{/* <TableCell
 											className="w-52 px-4 md:px-0"
 											component="th"
 											scope="row"
@@ -184,11 +184,16 @@ function ReteteTable(props) {
 										</TableCell>
 
 										<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-										{priceRangeCalculator(n.priceRange)}
+											{priceRangeCalculator(n.priceRange)}
 											{/* {} */}
 										</TableCell>
 
-										<TableCell className="p-4 md:p-16 truncate" component="th" scope="row" align="right">
+										<TableCell
+											className="p-4 md:p-16 truncate"
+											component="th"
+											scope="row"
+											align="right"
+										>
 											{n.calorii}
 										</TableCell>
 										{/*<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">

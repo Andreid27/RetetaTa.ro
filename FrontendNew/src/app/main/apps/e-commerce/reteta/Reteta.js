@@ -18,7 +18,7 @@ import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useHistory, Link, useParams } from 'react-router-dom';
 import { saveProduct, newProduct, getProduct } from '../store/productSlice';
 import reducer from '../store';
 import Ingrediente from './IngredeinteFields';
@@ -60,30 +60,28 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-
 let priceRangeValues = [
 	{
-	value:1, 
-	label:"$"
+		value: 1,
+		label: '$'
 	},
 	{
-	value:2, 
-	label:"$$"
+		value: 2,
+		label: '$$'
 	},
 	{
-	value:3, 
-	label:"$$$"
+		value: 3,
+		label: '$$$'
 	},
 	{
-	value:4, 
-	label:"$$$$"
+		value: 4,
+		label: '$$$$'
 	},
 	{
-	value:5, 
-	label:"$$$$$"
+		value: 5,
+		label: '$$$$$'
 	}
-
-]
+];
 
 const priceMap = new Map([
 	['1', '$'],
@@ -91,16 +89,16 @@ const priceMap = new Map([
 	['3', '$$$'],
 	['4', '$$$$'],
 	['5', '$$$$$']
-  ])
+]);
 
-  const arr = Array.from(priceMap)
+const arr = Array.from(priceMap);
 
 function Reteta(props) {
 	const dispatch = useDispatch();
 	const product = useSelector(({ eCommerceApp }) => eCommerceApp.product);
 	const theme = useTheme();
 
-	const [formIngrediente, setFormIngrediente] = useState("");
+	const [formIngrediente, setFormIngrediente] = useState('');
 	const classes = useStyles(props);
 	const [tabValue, setTabValue] = useState(0);
 	const { form, handleChange, setForm } = useForm(null);
@@ -131,17 +129,9 @@ function Reteta(props) {
 	}
 
 	function handleChipChange(value, name) {
-		console.log(value, name)
-		setForm(
-			_.set(
-				{ ...form },
-				name,
-				value.value
-			)
-		);
+		console.log(value, name);
+		setForm(_.set({ ...form }, name, value.value));
 	}
-
-	
 
 	function setFeaturedImage(id) {
 		setForm(_.set({ ...form }, 'featuredImageId', id));
@@ -156,16 +146,15 @@ function Reteta(props) {
 		reader.readAsBinaryString(file);
 
 		reader.onload = () => {
-			setForm(
-				// _.set({ ...form }, `images`, [
-				// 	{
-				// 		id: FuseUtils.generateGUID(),
-				// 		url: `data:${file.type};base64,${btoa(reader.result)}`,
-				// 		type: 'image'
-				// 	},
-				// 	...form.images
-				// ])
-			);
+			setForm();
+			// _.set({ ...form }, `images`, [
+			// 	{
+			// 		id: FuseUtils.generateGUID(),
+			// 		url: `data:${file.type};base64,${btoa(reader.result)}`,
+			// 		type: 'image'
+			// 	},
+			// 	...form.images
+			// ])
 		};
 
 		reader.onerror = () => {
@@ -177,14 +166,12 @@ function Reteta(props) {
 		return form.denumire.length > 0 && !_.isEqual(product, form);
 	}
 
-	function submitProduct(){
-		dispatch(saveProduct(formIngrediente))
-		console.log(formIngrediente)
+	function submitProduct() {
+		dispatch(saveProduct(formIngrediente));
 	}
 
 	if ((!product || (product && routeParams.productId !== product.id)) && routeParams.productId !== 'new') {
-
-		return <RetetaView reteta={product}/>
+		return <RetetaView reteta={product} />;
 
 		// return <FuseLoading />;
 	}
@@ -293,10 +280,12 @@ function Reteta(props) {
 
 								<FuseChipSelect
 									className="mt-8 mb-24"
-									value={priceRangeValues.find(item =>item.value==form.priceRange)}
+									value={priceRangeValues.find(item => item.value == form.priceRange)}
 									options={priceRangeValues}
-									onChange={value => {console.log(value);
-										 handleChipChange(value, 'priceRange')}}
+									onChange={value => {
+										console.log(value);
+										handleChipChange(value, 'priceRange');
+									}}
 									placeholder="Selectați zona de preț"
 									textFieldProps={{
 										label: 'Pret',
@@ -334,7 +323,12 @@ function Reteta(props) {
 									autoFocus
 									fullWidth
 								/>
-								<IngredeinteFields numar={5} form={form} numarIngrediente={form.ingredienteNumber} handleForm={setFormIngrediente}></IngredeinteFields>
+								<IngredeinteFields
+									numar={5}
+									form={form}
+									numarIngrediente={form.ingredienteNumber}
+									handleForm={setFormIngrediente}
+								></IngredeinteFields>
 								{/* de facut pentru fiecare ingredient - cantitate.... */}
 							</div>
 						)}

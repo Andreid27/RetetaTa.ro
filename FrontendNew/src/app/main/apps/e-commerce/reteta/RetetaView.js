@@ -1,7 +1,20 @@
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseChipSelect from '@fuse/core/FuseChipSelect';
 import FusePageCarded from '@fuse/core/FusePageCarded';
-import { Box, Button, Collapse, Icon, IconButton, makeStyles, TableBody, TableCell, TableRow, TextField, Typography, useTheme } from '@material-ui/core';
+import {
+	Box,
+	Button,
+	Collapse,
+	Icon,
+	IconButton,
+	makeStyles,
+	TableBody,
+	TableCell,
+	TableRow,
+	TextField,
+	Typography,
+	useTheme
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,23 +24,18 @@ import { deleteReteta } from '../store/productSlice';
 import { selectProductById } from '../store/productsSlice';
 import IngredienteInfoTabel from './IngredienteInfoTable';
 
-
-
 const RetetaView = () => {
-  const theme = useTheme();
-  const routeParams = useParams();
+	const theme = useTheme();
+	const routeParams = useParams();
 	const reteta = useSelector(({ eCommerceApp }) => eCommerceApp.product);
 	const user = useSelector(({ auth }) => auth.user.data);
-  const dispatch = useDispatch();
-  const history = useHistory();
+	const dispatch = useDispatch();
+	const history = useHistory();
 
-
-  function deleteThisReteta(){
-    dispatch(deleteReteta(routeParams));
-    history.push('/apps/e-commerce/retete');
-  }
-
-
+	function deleteThisReteta() {
+		dispatch(deleteReteta(routeParams));
+		// history.push('/apps/e-commerce/retete');
+	}
 
 	return (
 		<FusePageCarded
@@ -36,7 +44,7 @@ const RetetaView = () => {
 				header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
 			}}
 			header={
-        reteta && (
+				reteta && (
 					<div className="flex flex-1 w-full items-center justify-between">
 						<div className="flex flex-col items-start max-w-full">
 							<FuseAnimate animation="transition.slideRightIn" delay={300}>
@@ -57,9 +65,7 @@ const RetetaView = () => {
 							<div className="flex items-center max-w-full">
 								<div className="flex flex-col min-w-0 mx-8 sm:mc-16">
 									<FuseAnimate animation="transition.slideLeftIn" delay={300}>
-										<Typography className="text-16 sm:text-20 truncate">
-											
-										</Typography>
+										<Typography className="text-16 sm:text-20 truncate"></Typography>
 									</FuseAnimate>
 									<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 										<Typography variant="caption">Detalii rețetă {reteta.denumire}</Typography>
@@ -67,52 +73,55 @@ const RetetaView = () => {
 								</div>
 							</div>
 						</div>
-            {reteta.autor.username === user.displayName &&(
-            <FuseAnimate animation="transition.slideRightIn" delay={300}>
-              <div>
-                <Button
-                  className="whitespace-no-wrap normal-case"
-                  variant="contained"
-                  color="secondary"
-                  // disabled={!canBeSubmitted()}
-                  // onClick={() => submitProduct()}
-                >
-                  Edit
-                </Button>
-                <Button
-                  className="whitespace-no-wrap normal-case"
-                  color="secondary"
-                  onClick={() => deleteThisReteta()}
-                >
-                  <DeleteIcon/>
-                </Button>
-                
-              </div>
-						</FuseAnimate>
-            )}
-					</div>)
-			}
-      
-			content={
-        reteta && (
-					<div className="p-16 sm:p-24 max-w-2xl">
-							<div>
-              <Box margin={2}>
-                <Typography variant="h3" align='center'>{reteta.denumire}</Typography>
-              </Box>
-              <Box margin={1}>
-                <Typography variant="h5">Descriere</Typography>
-                <Typography variant="body1" style={{marginTop:10 , marginBottom:5}}>{reteta.descriere} </Typography>
-              </Box>
-
-              <IngredienteInfoTabel ingrediente={reteta.ingredientCantitate}/>
-
-							</div>
+						{reteta.autor.username === user.displayName && (
+							<FuseAnimate animation="transition.slideRightIn" delay={300}>
+								<div>
+									<Button
+										className="whitespace-no-wrap normal-case"
+										variant="contained"
+										color="secondary"
+										// disabled={!canBeSubmitted()}
+										// onClick={() => history.push('/apps/e-commerce/retete/edit')} // DE CONTINUAT DE AICI LOGICA PENRTU IMPLEMENTARE IN CONTINUARE UPDATE RETETA
+									>
+										Edit
+									</Button>
+									<Button
+										className="whitespace-no-wrap normal-case"
+										color="secondary"
+										onClick={() => deleteThisReteta()}
+									>
+										<DeleteIcon />
+									</Button>
+								</div>
+							</FuseAnimate>
+						)}
 					</div>
-  )}
+				)
+			}
+			content={
+				reteta && (
+					<div className="p-16 sm:p-24 max-w-2xl">
+						<div>
+							<Box margin={2}>
+								<Typography variant="h3" align="center">
+									{reteta.denumire}
+								</Typography>
+							</Box>
+							<Box margin={1}>
+								<Typography variant="h5">Descriere</Typography>
+								<Typography variant="body1" style={{ marginTop: 10, marginBottom: 5 }}>
+									{reteta.descriere}{' '}
+								</Typography>
+							</Box>
+
+							<IngredienteInfoTabel ingrediente={reteta.ingredientCantitate} />
+						</div>
+					</div>
+				)
+			}
 			innerScroll
 		/>
 	);
-}
+};
 
 export default RetetaView;
