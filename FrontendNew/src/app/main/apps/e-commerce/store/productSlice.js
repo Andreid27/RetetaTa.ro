@@ -3,44 +3,57 @@ import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 import * as apiSpec from './../../../../apiSpec';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import toastr from 'toastr';
+import 'toastr/build/toastr.css';
+import './StatusUpdate/custom-toastr.css';
 
 export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', async params => {
-	console.log(params)
-	const response = await axios.get(apiSpec.RETETA +'/'+ params.productId);
+	console.log(params);
+	const response = await axios.get(apiSpec.RETETA + '/' + params.productId);
 	const data = await response.data;
 
 	return data;
 });
 
 export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', async product => {
-	let ingredientCantitateFormat = []
-	for(let i=0;i<product.ingredientCantitate.length;i++){
+	let ingredientCantitateFormat = [];
+	for (let i = 0; i < product.ingredientCantitate.length; i++) {
 		let ingredient = {
-			ingredient:{
+			ingredient: {
 				id: product.ingredientCantitate[i][0]
 			},
 			cantitate: product.ingredientCantitate[i][1]
-		}
+		};
 		ingredientCantitateFormat.push(ingredient);
 	}
 
-	const response = await axios.post(apiSpec.RETETA,{ 
-	denumire: product.denumire,
-    descriere: product.descriere,
-	priceRange: product.priceRange,
-	ingredientCantitate: ingredientCantitateFormat
-})
+	const response = await axios.post(apiSpec.RETETA, {
+		denumire: product.denumire,
+		descriere: product.descriere,
+		priceRange: product.priceRange,
+		ingredientCantitate: ingredientCantitateFormat
+	});
 
 	const data = await response.data;
+	const status = await response.status;
+	if (status === 200) {
+		const status = response.status;
+		toastr.success('Rețeta a fost adăugată cu succes!');
+	}
 
 	return data;
 });
 
-
 export const deleteReteta = createAsyncThunk('eCommerceApp/product/deleteReteta', async params => {
-	console.log(params)
-	const response = await axios.delete(apiSpec.RETETA +'/'+ params.productId);
+	console.log(params);
+	const response = await axios.delete(apiSpec.RETETA + '/' + params.productId);
 	const data = await response.data;
+	const status = await response.status;
+	if (status === 200) {
+		const status = response.status;
+		toastr.success('Rețeta a fost ștearsă cu succes!');
+	}
 
 	return data;
 });
@@ -56,10 +69,10 @@ const productSlice = createSlice({
 					// id: FuseUtils.generateGUID(), // fie daca există deja este adăugat, fie este blank
 					denumire: '',
 					descriere: '',
-					priceRange:1,
-					calorii:0,
+					priceRange: 1,
+					calorii: 0,
 					ingredientCantitate: [],
-					ingredienteNumber:1
+					ingredienteNumber: 1
 				}
 			})
 		}
