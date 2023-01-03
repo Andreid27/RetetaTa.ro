@@ -80,7 +80,7 @@ export default function IngredienteInfoTabel(props) {
         </TableHead>
         <TableBody>
           {props.ingrediente.map((ingredient) => (
-            <Row key={ingredient.ingredient.denumire} row={ingredient} />
+            <Row key={ingredient.ingredient.id} row={ingredient} />
           ))}
         </TableBody>
       </Table>

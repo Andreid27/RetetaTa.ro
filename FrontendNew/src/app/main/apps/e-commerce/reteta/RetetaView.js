@@ -31,10 +31,14 @@ const RetetaView = () => {
 	const user = useSelector(({ auth }) => auth.user.data);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const delay = ms => new Promise(
+  	resolve => setTimeout(resolve, ms)
+	);
 
-	function deleteThisReteta() {
+	const deleteThisReteta = async event => {
 		dispatch(deleteReteta(routeParams));
-		// history.push('/apps/e-commerce/retete');
+		await delay(1000);
+		history.push('/apps/e-commerce/retete');
 	}
 
 	return (
@@ -80,10 +84,9 @@ const RetetaView = () => {
 										className="whitespace-no-wrap normal-case"
 										variant="contained"
 										color="secondary"
-										// disabled={!canBeSubmitted()}
-										// onClick={() => history.push('/apps/e-commerce/retete/edit')} // DE CONTINUAT DE AICI LOGICA PENRTU IMPLEMENTARE IN CONTINUARE UPDATE RETETA
+										onClick={() => history.push('/apps/e-commerce/products/'+routeParams.productId+'/edit')} // DE CONTINUAT DE AICI LOGICA PENRTU IMPLEMENTARE IN CONTINUARE UPDATE RETETA
 									>
-										Edit
+										Editare
 									</Button>
 									<Button
 										className="whitespace-no-wrap normal-case"

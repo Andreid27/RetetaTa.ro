@@ -3,6 +3,7 @@ package com.andrei.backend.service;
 import com.andrei.backend.model.Reteta;
 import com.andrei.backend.repository.RetetaRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,14 @@ public class RetetaService {
     }
 
 
-    public void updateReteta(Reteta reteta) {
-        retetaRepository.save(reteta);
+    public void updateReteta(Reteta reteta, HttpServletResponse response) {
+        Reteta dBReteta = retetaRepository.findById(reteta.getId()).get();
+        if(dBReteta.getAutor().getId() == reteta.getAutor().getId()) {
+            retetaRepository.save(reteta);
+            response.setStatus(200);
+        }else {
+            response.setStatus(403);
+        }
     }
 
 

@@ -19,7 +19,7 @@ import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
-import { saveProduct, newProduct, getProduct } from '../store/productSlice';
+import { saveProduct, newProduct, getProduct, updateProduct } from '../store/productSlice';
 import reducer from '../store';
 import Ingrediente from './IngredeinteFields';
 import IngredeinteFields from './IngredeinteFields';
@@ -103,6 +103,7 @@ function Reteta(props) {
 	const [tabValue, setTabValue] = useState(0);
 	const { form, handleChange, setForm } = useForm(null);
 	const routeParams = useParams();
+	const history = useHistory();
 
 	useDeepCompareEffect(() => {
 		function updateProductState() {
@@ -123,6 +124,17 @@ function Reteta(props) {
 			setForm(product);
 		}
 	}, [form, product, setForm]);
+
+	// useEffect(() => {
+	// 	if ((product && !form) && routeParams.productHandle == 'edit') {
+	// 		let numarIngrediente = product.ingredientCantitate.length
+	// 		setForm(_.set({ ...form }, 'ingredienteNumber', numarIngrediente));
+	// 	}
+	// }, []); DE CONTINUAT DACA ESTE NEVOIE SA TINA MINTE INGREDIENTELE
+
+	const delay = ms => new Promise(
+		resolve => setTimeout(resolve, ms)
+	  );
 
 	function handleChangeTab(event, value) {
 		setTabValue(value);
@@ -166,14 +178,23 @@ function Reteta(props) {
 		return form.denumire.length > 0 && !_.isEqual(product, form);
 	}
 
-	function submitProduct() {
-		dispatch(saveProduct(formIngrediente));
+	const submitProduct = async event => {
+		if(routeParams.productId == 'new'){
+			dispatch(saveProduct(formIngrediente));
+			await delay(1000);
+			history.push('/apps/e-commerce/retete');
+		}
+		if(routeParams.productHandle == 'edit'){
+			dispatch(updateProduct(formIngrediente));
+			await delay(1000);
+			history.push('/apps/e-commerce/products/'+routeParams.productId)
+		}
+
 	}
+	console.log(routeParams)
 
-	if ((!product || (product && routeParams.productId !== product.id)) && routeParams.productId !== 'new') {
+	if ((!product || (product && routeParams.productId !== product.id)) && routeParams.productId !== 'new' && routeParams.productHandle !== 'edit' ) {
 		return <RetetaView reteta={product} />;
-
-		// return <FuseLoading />;
 	}
 
 	return (
@@ -222,7 +243,7 @@ function Reteta(props) {
 								disabled={!canBeSubmitted()}
 								onClick={() => submitProduct()}
 							>
-								Adaugă
+								Salvează rețeta
 							</Button>
 						</FuseAnimate>
 					</div>
@@ -239,10 +260,7 @@ function Reteta(props) {
 					classes={{ root: 'w-full h-64' }}
 				>
 					<Tab className="h-64 normal-case" label="Descriere" />
-					{/* <Tab className="h-64 normal-case" label="Product Images" /> */}
 					<Tab className="h-64 normal-case" label="Ingrediente" />
-					{/* <Tab className="h-64 normal-case" label="Inventory" /> */}
-					{/* <Tab className="h-64 normal-case" label="Shipping" /> */}
 				</Tabs>
 			}
 			content={

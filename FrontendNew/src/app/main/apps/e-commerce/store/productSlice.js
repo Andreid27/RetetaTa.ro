@@ -32,6 +32,7 @@ export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', 
 		denumire: product.denumire,
 		descriere: product.descriere,
 		priceRange: product.priceRange,
+		calorii: product.calorii,
 		ingredientCantitate: ingredientCantitateFormat
 	});
 
@@ -40,6 +41,40 @@ export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', 
 	if (status === 200) {
 		const status = response.status;
 		toastr.success('Rețeta a fost adăugată cu succes!');
+	}
+
+	return data;
+});
+
+
+
+
+export const updateProduct = createAsyncThunk('eCommerceApp/product/updateProduct', async product => {
+	let ingredientCantitateFormat = [];
+	for (let i = 0; i < product.ingredientCantitate.length; i++) {
+		let ingredient = {
+			ingredient: {
+				id: product.ingredientCantitate[i][0]
+			},
+			cantitate: product.ingredientCantitate[i][1]
+		};
+		ingredientCantitateFormat.push(ingredient);
+	}
+
+	const response = await axios.put(apiSpec.RETETA, {
+		id: product.id,
+		denumire: product.denumire,
+		descriere: product.descriere,
+		priceRange: product.priceRange,
+		calorii: product.calorii,
+		ingredientCantitate: ingredientCantitateFormat,
+	});
+
+	const data = await response.data;
+	const status = await response.status;
+	if (status === 200) {
+		const status = response.status;
+		toastr.success('Rețeta a fost modificată cu succes!');
 	}
 
 	return data;

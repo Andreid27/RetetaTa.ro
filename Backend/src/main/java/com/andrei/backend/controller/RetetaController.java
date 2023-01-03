@@ -5,6 +5,7 @@ import com.andrei.backend.model.User;
 import com.andrei.backend.service.RetetaService;
 import com.andrei.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +41,11 @@ public class RetetaController {
     }
 
     @PutMapping("/reteta")
-    public void updateReteta(@RequestBody Reteta reteta) {
-        retetaService.updateReteta(reteta);
+    public void updateReteta(@RequestBody Reteta reteta, HttpServletRequest request, HttpServletResponse response) {
+        String authHeader = request.getHeader(AUTHORIZATION);
+        User user = userService.getMyUser(authHeader);
+        reteta.setAutor(user);
+        retetaService.updateReteta(reteta, response);
     }
 
     @DeleteMapping("/reteta/{id}")
