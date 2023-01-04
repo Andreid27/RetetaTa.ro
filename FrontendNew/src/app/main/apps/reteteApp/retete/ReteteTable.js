@@ -40,6 +40,7 @@ function ReteteTable(props) {
 	}, [retete, searchText]);
 
 	function handleRequestSort(event, property) {
+		property = property.toLowerCase();
 		const id = property;
 		let direction = 'desc';
 
@@ -115,17 +116,9 @@ function ReteteTable(props) {
 							data,
 							[
 								o => {
-									// console.log(o);
-									// console.log(order);
-									switch (order.id) {
-										case 'categories': {
-											console.log(o.categories[0]);
-											return o.categories[0];
-										}
-										default: {
-											return o[order.id];
-										}
-									}
+									console.log(o);
+									console.log(order);
+									return o[order.id];
 								}
 							],
 							[order.direction]
