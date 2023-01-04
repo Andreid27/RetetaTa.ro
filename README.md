@@ -26,7 +26,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Andreid27">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./FrontendNew/RetetaTa.ro_logo.jpg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">RetetaTa.ro</h3>
@@ -207,7 +207,7 @@ Use this space to list resources you find helpful and would like to give credit 
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[contributors-url]: https://github.com/Andreid27
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
 [forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
