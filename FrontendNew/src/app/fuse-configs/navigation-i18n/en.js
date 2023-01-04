@@ -2,7 +2,7 @@ const locale = {
 	APPLICATIONS: 'Applications',
 	DASHBOARDS: 'Dashboards',
 	CALENDAR: 'Calendar',
-	ECOMMERCE: 'E-Commerce',
+	ECOMMERCE: 'reteteApp',
 	ACADEMY: 'Academy',
 	MAIL: 'Mail',
 	TODO: 'To-Do',

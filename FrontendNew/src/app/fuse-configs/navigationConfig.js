@@ -19,14 +19,14 @@ const navigationConfig = [
 		translate: 'Retete',
 		type: 'item',
 		icon: 'store_front',
-		url: '/apps/e-commerce/retete'
+		url: '/apps/reteteApp/retete'
 	},
 	{
 		id: 'ingrediente',
 		title: 'Ingrediente',
 		translate: 'Ingrediente',
 		type: 'item',
-		icon: 'account_box',
+		icon: 'local_grocery_store',
 		url: '/apps/event-app/all'
 	}
 ];

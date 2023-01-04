@@ -1,9 +1,6 @@
 import HomeAppConfig from './home/HomeAppConfig';
-import ECommerceAppConfig from './e-commerce/ECommerceAppConfig';
+import ReteteAppConfig from './reteteApp/ReteteAppConfig';
 
-const appsConfigs = [
-    ECommerceAppConfig, 
-    HomeAppConfig
-];
+const appsConfigs = [ReteteAppConfig, HomeAppConfig];
 
 export default appsConfigs;

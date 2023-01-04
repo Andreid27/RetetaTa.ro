@@ -19,7 +19,7 @@ import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
-import { saveProduct, newProduct, getProduct, updateProduct } from '../store/productSlice';
+import { saveProduct, newProduct, getProduct, updateProduct } from '../store/retetaSlice';
 import reducer from '../store';
 import Ingrediente from './IngredeinteFields';
 import IngredeinteFields from './IngredeinteFields';
@@ -106,7 +106,7 @@ function Reteta(props) {
 	const history = useHistory();
 
 	useDeepCompareEffect(() => {
-		function updateProductState() {
+		function updateretetetate() {
 			const { productId } = routeParams;
 
 			if (productId === 'new') {
@@ -116,7 +116,7 @@ function Reteta(props) {
 			}
 		}
 
-		updateProductState();
+		updateretetetate();
 	}, [dispatch, routeParams]);
 
 	useEffect(() => {
@@ -132,9 +132,7 @@ function Reteta(props) {
 	// 	}
 	// }, []); DE CONTINUAT DACA ESTE NEVOIE SA TINA MINTE INGREDIENTELE
 
-	const delay = ms => new Promise(
-		resolve => setTimeout(resolve, ms)
-	  );
+	const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 	function handleChangeTab(event, value) {
 		setTabValue(value);
@@ -179,21 +177,24 @@ function Reteta(props) {
 	}
 
 	const submitProduct = async event => {
-		if(routeParams.productId == 'new'){
+		if (routeParams.productId == 'new') {
 			dispatch(saveProduct(formIngrediente));
 			await delay(1000);
-			history.push('/apps/e-commerce/retete');
+			history.push('/apps/reteteApp/retete');
 		}
-		if(routeParams.productHandle == 'edit'){
+		if (routeParams.productHandle == 'edit') {
 			dispatch(updateProduct(formIngrediente));
 			await delay(1000);
-			history.push('/apps/e-commerce/products/'+routeParams.productId)
+			history.push('/apps/reteteApp/retete/' + routeParams.productId);
 		}
+	};
+	console.log(routeParams);
 
-	}
-	console.log(routeParams)
-
-	if ((!product || (product && routeParams.productId !== product.id)) && routeParams.productId !== 'new' && routeParams.productHandle !== 'edit' ) {
+	if (
+		(!product || (product && routeParams.productId !== product.id)) &&
+		routeParams.productId !== 'new' &&
+		routeParams.productHandle !== 'edit'
+	) {
 		return <RetetaView reteta={product} />;
 	}
 
@@ -212,7 +213,7 @@ function Reteta(props) {
 									className="normal-case flex items-center sm:mb-12"
 									component={Link}
 									role="button"
-									to="/apps/e-commerce/retete"
+									to="/apps/reteteApp/retete"
 									color="inherit"
 								>
 									<Icon className="text-20">

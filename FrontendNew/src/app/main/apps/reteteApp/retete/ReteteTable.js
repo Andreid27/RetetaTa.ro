@@ -11,16 +11,16 @@ import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getProducts, selectProducts } from '../store/productsSlice';
+import { getretete, selectretete } from '../store/reteteSlice';
 import ReteteTableHead from './ReteteTableHead';
 
 function ReteteTable(props) {
 	const dispatch = useDispatch();
-	const products = useSelector(selectProducts);
-	const searchText = useSelector(({ eCommerceApp }) => eCommerceApp.products.searchText);
+	const retete = useSelector(selectretete);
+	const searchText = useSelector(({ eCommerceApp }) => eCommerceApp.retete.searchText);
 
 	const [selected, setSelected] = useState([]);
-	const [data, setData] = useState(products);
+	const [data, setData] = useState(retete);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 	const [order, setOrder] = useState({
@@ -29,17 +29,17 @@ function ReteteTable(props) {
 	});
 
 	useEffect(() => {
-		dispatch(getProducts());
+		dispatch(getretete());
 	}, [dispatch]);
 
 	useEffect(() => {
 		if (searchText.length !== 0) {
-			setData(_.filter(products, item => item.name.toLowerCase().includes(searchText.toLowerCase())));
+			setData(_.filter(retete, item => item.name.toLowerCase().includes(searchText.toLowerCase())));
 			setPage(0);
 		} else {
-			setData(products);
+			setData(retete);
 		}
-	}, [products, searchText]);
+	}, [retete, searchText]);
 
 	function handleRequestSort(event, property) {
 		const id = property;
@@ -64,7 +64,7 @@ function ReteteTable(props) {
 	}
 
 	function handleClick(item) {
-		props.history.push(`/apps/e-commerce/products/${item.id}`);
+		props.history.push(`/apps/reteteApp/retete/${item.id}`);
 	}
 
 	function handleCheck(event, id) {

@@ -68,19 +68,19 @@ const useStyles = makeStyles(theme => ({
 
 function ReteteTableHead(props) {
 	const classes = useStyles(props);
-	const [selectedProductsMenu, setSelectedProductsMenu] = useState(null);
+	const [selectedreteteMenu, setSelectedreteteMenu] = useState(null);
 
 	const createSortHandler = property => event => {
 		props.onRequestSort(event, property);
 		console.log(event, property);
 	};
 
-	function openSelectedProductsMenu(event) {
-		setSelectedProductsMenu(event.currentTarget);
+	function openSelectedreteteMenu(event) {
+		setSelectedreteteMenu(event.currentTarget);
 	}
 
-	function closeSelectedProductsMenu() {
-		setSelectedProductsMenu(null);
+	function closeSelectedreteteMenu() {
+		setSelectedreteteMenu(null);
 	}
 
 	return (
@@ -100,22 +100,22 @@ function ReteteTableHead(props) {
 							)}
 						>
 							<IconButton
-								aria-owns={selectedProductsMenu ? 'selectedProductsMenu' : null}
+								aria-owns={selectedreteteMenu ? 'selectedreteteMenu' : null}
 								aria-haspopup="true"
-								onClick={openSelectedProductsMenu}
+								onClick={openSelectedreteteMenu}
 							>
 								<Icon>more_horiz</Icon>
 							</IconButton>
 							<Menu
-								id="selectedProductsMenu"
-								anchorEl={selectedProductsMenu}
-								open={Boolean(selectedProductsMenu)}
-								onClose={closeSelectedProductsMenu}
+								id="selectedreteteMenu"
+								anchorEl={selectedreteteMenu}
+								open={Boolean(selectedreteteMenu)}
+								onClose={closeSelectedreteteMenu}
 							>
 								<MenuList>
 									<MenuItem
 										onClick={() => {
-											closeSelectedProductsMenu();
+											closeSelectedreteteMenu();
 										}}
 									>
 										<ListItemIcon className="min-w-40">

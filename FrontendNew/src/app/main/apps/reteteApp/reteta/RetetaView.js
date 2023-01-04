@@ -20,8 +20,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { Column, Table } from 'react-virtualized';
-import { deleteReteta } from '../store/productSlice';
-import { selectProductById } from '../store/productsSlice';
+import { deleteReteta } from '../store/retetaSlice';
+import { selectProductById } from '../store/reteteSlice';
 import IngredienteInfoTabel from './IngredienteInfoTable';
 
 const RetetaView = () => {
@@ -31,15 +31,13 @@ const RetetaView = () => {
 	const user = useSelector(({ auth }) => auth.user.data);
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const delay = ms => new Promise(
-  	resolve => setTimeout(resolve, ms)
-	);
+	const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 	const deleteThisReteta = async event => {
 		dispatch(deleteReteta(routeParams));
 		await delay(1000);
-		history.push('/apps/e-commerce/retete');
-	}
+		history.push('/apps/reteteApp/retete');
+	};
 
 	return (
 		<FusePageCarded
@@ -56,7 +54,7 @@ const RetetaView = () => {
 									className="normal-case flex items-center sm:mb-12"
 									component={Link}
 									role="button"
-									to="/apps/e-commerce/retete"
+									to="/apps/reteteApp/retete"
 									color="inherit"
 								>
 									<Icon className="text-20">
@@ -84,7 +82,9 @@ const RetetaView = () => {
 										className="whitespace-no-wrap normal-case"
 										variant="contained"
 										color="secondary"
-										onClick={() => history.push('/apps/e-commerce/products/'+routeParams.productId+'/edit')} // DE CONTINUAT DE AICI LOGICA PENRTU IMPLEMENTARE IN CONTINUARE UPDATE RETETA
+										onClick={() =>
+											history.push('/apps/reteteApp/retete/' + routeParams.productId + '/edit')
+										} // DE CONTINUAT DE AICI LOGICA PENRTU IMPLEMENTARE IN CONTINUARE UPDATE RETETA
 									>
 										Editare
 									</Button>

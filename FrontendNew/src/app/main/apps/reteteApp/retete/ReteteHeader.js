@@ -1,4 +1,5 @@
 import FuseAnimate from '@fuse/core/FuseAnimate';
+import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
@@ -6,12 +7,13 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
-import { setOrdersSearchText } from '../store/ordersSlice';
+import { setreteteSearchText } from '../store/reteteSlice';
 
-function OrdersHeader(props) {
+function ReteteHeader(props) {
 	const dispatch = useDispatch();
-	const searchText = useSelector(({ eCommerceApp }) => eCommerceApp.orders.searchText);
+	const searchText = useSelector(({ eCommerceApp }) => eCommerceApp.retete.searchText);
 	const mainTheme = useSelector(selectMainTheme);
 
 	return (
@@ -20,10 +22,9 @@ function OrdersHeader(props) {
 				<FuseAnimate animation="transition.expandIn" delay={300}>
 					<Icon className="text-32">shopping_basket</Icon>
 				</FuseAnimate>
-
 				<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 					<Typography className="hidden sm:flex mx-0 sm:mx-12" variant="h6">
-						Orders
+						Rețete
 					</Typography>
 				</FuseAnimate>
 			</div>
@@ -41,16 +42,28 @@ function OrdersHeader(props) {
 								fullWidth
 								value={searchText}
 								inputProps={{
-									'aria-label': 'Search'
+									'aria-label': 'Caută o rețetă'
 								}}
-								onChange={ev => dispatch(setOrdersSearchText(ev))}
+								onChange={ev => dispatch(setreteteSearchText(ev))}
 							/>
 						</Paper>
 					</FuseAnimate>
 				</ThemeProvider>
 			</div>
+			<FuseAnimate animation="transition.slideRightIn" delay={300}>
+				<Button
+					component={Link}
+					to="/apps/reteteApp/retete/new"
+					className="whitespace-no-wrap normal-case"
+					variant="contained"
+					color="secondary"
+				>
+					<span className="hidden sm:flex">Adauga o rețetă nouă</span>
+					<span className="flex sm:hidden">New</span>
+				</Button>
+			</FuseAnimate>
 		</div>
 	);
 }
 
-export default OrdersHeader;
+export default ReteteHeader;

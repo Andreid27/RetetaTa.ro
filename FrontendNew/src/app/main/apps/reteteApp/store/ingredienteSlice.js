@@ -21,7 +21,7 @@ const ingredienteSlice = createSlice({
 		searchText: ''
 	}),
 	reducers: {
-		setProductsSearchText: {
+		setreteteSearchText: {
 			reducer: (state, action) => {
 				state.searchText = action.payload;
 			},
@@ -33,6 +33,6 @@ const ingredienteSlice = createSlice({
 	}
 });
 
-export const { setProductsSearchText } = ingredienteSlice.actions;
+export const { setreteteSearchText } = ingredienteSlice.actions;
 
 export default ingredienteSlice.reducer;

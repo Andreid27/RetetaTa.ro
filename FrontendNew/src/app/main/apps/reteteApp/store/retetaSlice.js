@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 import FuseUtils from '@fuse/utils';
-import * as apiSpec from './../../../../apiSpec';
+import * as apiSpec from '../../../../apiSpec';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import toastr from 'toastr';
@@ -93,7 +93,7 @@ export const deleteReteta = createAsyncThunk('eCommerceApp/product/deleteReteta'
 	return data;
 });
 
-const productSlice = createSlice({
+const retetelice = createSlice({
 	name: 'eCommerceApp/product',
 	initialState: null,
 	reducers: {
@@ -118,6 +118,6 @@ const productSlice = createSlice({
 	}
 });
 
-export const { newProduct } = productSlice.actions;
+export const { newProduct } = retetelice.actions;
 
-export default productSlice.reducer;
+export default retetelice.reducer;

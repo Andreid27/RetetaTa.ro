@@ -199,7 +199,7 @@ const changelogData = [
 			'All dependency packages updated.'
 		],
 		fixedChanges: [
-			'E-Commerce App: reset table page when listing search results.',
+			'reteteApp App: reset table page when listing search results.',
 			"Project Dashboard: 'scales.[x/y]Axes.categoryPercentage' is deprecated changed with 'dataset.categoryPercentage'"
 		]
 	},
@@ -217,7 +217,7 @@ const changelogData = [
 			'react updated to 16.11.0',
 			'All dependency packages updated.',
 			'Fake-db delay option added for testing purposes (src/@fake-db/mock.js).',
-			'E-Commerce App, shows FuseLoading component while product data is loading.',
+			'reteteApp App, shows FuseLoading component while product data is loading.',
 			'Contacts App Contact Dialog Mobile refinement for scroll.',
 			'Calendar App Native date input changed with DateTimePicker.',
 			'FuseNavigation, dense attr added for densed variation.'
@@ -483,7 +483,7 @@ const changelogData = [
 			'Codebase improvements.',
 			'Some IE fixes.',
 			'FuseAuthorization must have state to prevent restricted route component mount when unauthorized user redirects.',
-			"E-Commerce App, navigating product to new product didn't update the form state.",
+			"reteteApp App, navigating product to new product didn't update the form state.",
 			'Authentication timing issues fixed.'
 		],
 		breakingChanges: [
@@ -511,7 +511,7 @@ const changelogData = [
 			'Missing input variants added to Formsy Higher Order Components.',
 			'FuseChipSelect variant styles fixed.',
 			'FuseNavHorizontalItem missing exact prop added.',
-			"E-Commerce App, navigating product to new product didn't update the form state.",
+			"reteteApp App, navigating product to new product didn't update the form state.",
 			'Authentication timing issues fixed.'
 		]
 	},
@@ -576,7 +576,7 @@ const changelogData = [
 			'Material UI updated to v3.1.2',
 			'Navigation active item style option added for to use square highlighting(old style).',
 			'Dependency packages updated.',
-			'E-commerce App data/assets updated.'
+			'reteteApp App data/assets updated.'
 		],
 		fixedChanges: [
 			'Synthetically trigger event onChange for higher-order components of formsy.',
@@ -603,7 +603,7 @@ const changelogData = [
 		version: '1.1.8',
 		date: '2018-09-08',
 		newChanges: [
-			'E-commerce App added.',
+			'reteteApp App added.',
 			'FuseChipSelect Component added.',
 			'Material UI updated to v3.0.2',
 			'Dependency packages updated.'
