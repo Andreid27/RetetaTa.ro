@@ -1,13 +1,6 @@
 export const LOGIN = '/login';
 export const PROFILE = '/user';
 export const RETETA = '/reteta';
-export const GET_ALL_EVENTS = '/api/5/events';
-export const USER = '/api/5/users';
-export const REGISTER = '/api/register';
+export const REGISTER = '/register';
 export const REFRESH_TOKEN = '/login';
 export const INGREDIENTE = '/ingrediente';
-export const WEEKLY_USERS = '/api/5/users/weekly';
-export const MONTHLY_USERS = '/api/5/users/monthly';
-export const YEARLY_USERS = '/api/5/users/yearly';
-export const STANDS = '/api/5/stands';
-export const GET_STANDS_COMPANY = '/api/5/stands';

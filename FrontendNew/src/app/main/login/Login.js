@@ -24,11 +24,8 @@ const useStyles = makeStyles(theme => ({
 
 function Login() {
 	const classes = useStyles();
-	const [selectedTab, setSelectedTab] = useState(0);
 
-	function handleTabChange(event, value) {
-		setSelectedTab(value);
-	}
+
 
 	return (
 		<div

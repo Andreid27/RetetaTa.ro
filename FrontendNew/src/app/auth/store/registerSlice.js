@@ -2,18 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 import jwtService from 'app/services/jwtService';
 import {  setUserData } from './userSlice';
 
-export const submitRegister = ({ name, password, email, username, city, country, confirmedPassword }) => async dispatch => {
+export const submitRegister = ({ nume, prenume, username, mail, phoneNumber, password, confirmedPassword }) => async dispatch => {
 	return jwtService
 		.createUser({
-			name,
+			nume,
+			prenume,
 			username,
-			"companyId": "5",
-			"role": "guest",
-			email,
-			city,
-			country,
+			mail,
+			phoneNumber,
 			password,
-			confirmedPassword
+			"enabled": true
 		})
 		.then(user => {
 			dispatch(setUserData(user));

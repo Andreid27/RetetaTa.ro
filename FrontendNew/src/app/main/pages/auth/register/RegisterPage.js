@@ -25,16 +25,24 @@ function RegisterPage() {
 	const classes = useStyles();
 
 	const { form, handleChange, resetForm } = useForm({
-		name: '',
-		email: '',
+		username: '',
+		mail: '',
+		phoneNumber: '',
+		enabled: true,
 		password: '',
 		passwordConfirm: '',
+		nume: '',
+		prenume: '',
 		acceptTermsConditions: false
 	});
 
 	function isFormValid() {
 		return (
 			form.email.length > 0 &&
+			form.mail.length > 0 &&
+			form.phoneNumber.length > 0 &&
+			form.nume.length > 0 &&
+			form.prenume.length > 0 &&
 			form.password.length > 0 &&
 			form.password.length > 3 &&
 			form.password === form.passwordConfirm &&
@@ -67,11 +75,11 @@ function RegisterPage() {
 							>
 								<TextField
 									className="mb-16"
-									label="Name"
+									label="Username"
 									autoFocus
-									type="name"
-									name="name"
-									value={form.name}
+									type="username"
+									name="username"
+									value={form.username}
 									onChange={handleChange}
 									variant="outlined"
 									required

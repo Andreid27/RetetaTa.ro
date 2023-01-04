@@ -22,6 +22,7 @@ public class User implements UserDetails {
     @JsonIgnore
     @Column(unique = true)
     private String mail;
+    @Column(unique = true)
     private String phoneNumber;
     private String password;
     private Boolean active;
@@ -58,6 +59,14 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.password = password;
     }
+    public User(String nume, String prenume, String username, String mail, String phoneNumber, String password) {
+        this.Nume = nume;
+        this.Prenume = prenume;
+        this.username = username;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
 
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // este nevoie pentru a autoriza update-ul
     public long getId() {
@@ -72,7 +81,7 @@ public class User implements UserDetails {
         return username;
     }
 
-    public void setUsername(String name) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -80,11 +89,11 @@ public class User implements UserDetails {
     public String getMail() {
         return mail;
     }
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // este nevoie pentru a autoriza update-ul
     public void setMail(String mail) {
         this.mail = mail;
     }
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // este nevoie pentru a autoriza update-ul
     public String getPhoneNumber() {
         return phoneNumber;
     }

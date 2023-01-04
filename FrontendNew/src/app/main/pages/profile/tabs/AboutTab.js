@@ -22,7 +22,7 @@ function AboutTab() {
 		return null;
 	}
 
-	const { nume, email, prenume} = data.data;
+	const { nume, email, prenume, telefon} = data.data;
 
 	return (
 		<div className="md:flex max-w-2xl">
@@ -55,6 +55,10 @@ function AboutTab() {
 							<div className="mb-24">
 								<Typography className="font-bold mb-4 text-15">Email</Typography>
 								<Typography>{email}</Typography>
+							</div>
+							<div className="mb-24">
+								<Typography className="font-bold mb-4 text-15">Număr de telefon</Typography>
+								<Typography>{telefon}</Typography>
 							</div>
 
 						</CardContent>

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { submitRegister } from 'app/auth/store/registerSlice';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import toastr from 'toastr';
 
 function JWTRegisterTab(props) {
 	const dispatch = useDispatch();
@@ -45,6 +46,13 @@ function JWTRegisterTab(props) {
 		dispatch(submitRegister(model));
 	}
 
+	useEffect(() => {
+		console.log(register)
+		if(register.success==true){
+			toastr.success('Utilizator inregistrat cu succes! Acum vă puteți loga in secțiunea log in.');
+		}
+	}, [register]);
+
 	return (
 		<div className="w-full">
 			<Formsy
@@ -54,16 +62,17 @@ function JWTRegisterTab(props) {
 				ref={formRef}
 				className={clsx(classes.jwtTab, 'flex flex-col justify-center w-full')}
 			>
+
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
-					name="name"
-					label="Display name"
+					name="nume"
+					label="Nume"
 					validations={{
-						minLength: 4
+						minLength: 3
 					}}
 					validationErrors={{
-						minLength: 'Min character length is 4'
+						minLength: 'Min character length is 3'
 					}}
 					InputProps={{
 						endAdornment: (
@@ -78,6 +87,29 @@ function JWTRegisterTab(props) {
 					required
 				/>
 
+				<TextFieldFormsy
+					className="mb-16"
+					type="text"
+					name="prenume"
+					label="Prenume"
+					validations={{
+						minLength: 3
+					}}
+					validationErrors={{
+						minLength: 'Min character length is 3'
+					}}
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<Icon className="text-20" color="action">
+									person
+								</Icon>
+							</InputAdornment>
+						)
+					}}
+					variant="outlined"
+					required
+				/>
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
@@ -105,7 +137,7 @@ function JWTRegisterTab(props) {
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
-					name="email"
+					name="mail"
 					label="Email"
 					validations={{
 						minLength: 4
@@ -129,8 +161,8 @@ function JWTRegisterTab(props) {
 				<TextFieldFormsy
 					className="mb-16"
 					type="text"
-					name="city"
-					label="City"
+					name="phoneNumber"
+					label="Număr de telefon"
 					validations={{
 						minLength: 4
 					}}
@@ -141,31 +173,7 @@ function JWTRegisterTab(props) {
 						endAdornment: (
 							<InputAdornment position="end">
 								<Icon className="text-20" color="action">
-									place
-								</Icon>
-							</InputAdornment>
-						)
-					}}
-					variant="outlined"
-					required
-				/>
-
-				<TextFieldFormsy
-					className="mb-16"
-					type="text"
-					name="country"
-					label="Country"
-					validations={{
-						minLength: 4
-					}}
-					validationErrors={{
-						minLength: 'Min character length is 4'
-					}}
-					InputProps={{
-						endAdornment: (
-							<InputAdornment position="end">
-								<Icon className="text-20" color="action">
-									map
+									phone_enabled
 								</Icon>
 							</InputAdornment>
 						)

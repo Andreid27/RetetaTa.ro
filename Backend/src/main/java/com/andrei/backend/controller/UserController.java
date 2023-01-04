@@ -41,7 +41,7 @@ public class UserController {
 
 
     @PostMapping("/user")
-    public String addIngredient(@RequestBody User user, HttpServletResponse response){
+    public String addUser(@RequestBody User user, HttpServletResponse response){
         try {
             userService.addUser(user);
             return null;

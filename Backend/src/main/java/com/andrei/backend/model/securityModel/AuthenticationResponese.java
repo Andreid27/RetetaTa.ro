@@ -18,6 +18,7 @@ public class AuthenticationResponese {
         data.put("email",user.getMail());
         data.put("nume", user.getNume());
         data.put("prenume", user.getPrenume());
+        data.put("telefon",user.getPhoneNumber());
     }
 
 

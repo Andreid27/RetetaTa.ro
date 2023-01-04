@@ -70,11 +70,17 @@ public class AuthenticationController {
     }
 
 
-//    @PostMapping("/register")
-//    public User addUser(@RequestBody User user){
-//
-//        return null;
-//    }
+    @PostMapping("/register")
+    public ResponseEntity<?> addUser(@RequestBody User user){
+        try{
+            userService.addUser(user);
+            AuthenticationRequest authenticationRequest = new AuthenticationRequest(user.getUsername(), user.getPassword());
+            return createAuthenticationToken(authenticationRequest);
+        }
+        catch (Exception exception){
+            return ResponseEntity.status(409).build();
+        }
+    }
 
 
 

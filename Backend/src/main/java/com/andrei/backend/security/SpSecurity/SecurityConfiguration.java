@@ -44,6 +44,8 @@ public class SecurityConfiguration{
                     .authorizeHttpRequests()
                     .requestMatchers("/login")
                     .permitAll()
+                    .requestMatchers("/register")
+                    .permitAll()
                     .anyRequest()
                     .authenticated()
                     .and()
