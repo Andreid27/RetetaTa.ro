@@ -40,7 +40,7 @@ function ForgotPasswordPage() {
 					<Card className="w-full max-w-384 rounded-8">
 						<CardContent className="flex flex-col items-center justify-center p-32">
 							<div className="w-128 m-32">
-								<img src="assets/images/logos/fuse.svg" alt="logo" />
+								<img src="assets/images/logos/RetetaTa_logo.jpg" alt="logo" />
 							</div>
 
 							<Typography variant="h6" className="mt-16 mb-32">

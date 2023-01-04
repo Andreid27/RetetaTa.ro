@@ -45,7 +45,7 @@ function Login() {
 						<CardContent className="flex flex-col items-center justify-center w-full py-96 max-w-320">
 							<FuseAnimate delay={300}>
 								<div className="flex items-center mb-32">
-									<img className="logo-icon w-48" src="assets/images/logos/fuse.svg" alt="logo" />
+									<img className="logo-icon w-48" src="assets/images/logos/RetetaTa_logo.jpg" alt="logo" />
 									<div className="border-l-1 mr-4 w-1 h-40" />
 									<div>
 										<Typography className="text-24 font-800 logo-text" color="inherit">
