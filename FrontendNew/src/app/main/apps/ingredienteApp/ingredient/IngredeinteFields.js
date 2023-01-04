@@ -7,7 +7,6 @@ import withReducer from 'app/store/withReducer';
 import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import reducer from '../store';
-import { getIngrediente, selectIngrediente } from '../store/ingredienteSlice';
 
 
 let ingredientId = 0;
@@ -22,7 +21,6 @@ let ingredientCantitateNew = [
 function IngredeinteFields(props) {
     
     const dispatch = useDispatch();
-    const ingrediente = useSelector(selectIngrediente);
 	const product = useSelector(({ reteteApp }) => reteteApp.product);
 
 	const { form, setForm } = useForm(props.form);
@@ -46,11 +44,6 @@ function IngredeinteFields(props) {
         // console.log(form)
         props.handleForm(form);
 	}
-
-
-    useEffect(() =>{
-        dispatch(getIngrediente())
-    },[])
 
     useEffect(() =>{
         createIngrediente(props)
@@ -101,11 +94,11 @@ function IngredeinteFields(props) {
                 autoFocus
                 id="denumire_ingredient"
                 name="denumire_ingredient"
-                value={ingrediente.find(item =>item.value===form.ingredientCantitate[index][0])}
-                options={ingrediente.map((ingredient) =>({
-                    value: ingredient.id,
-                    label: ingredient.denumire
-                }))} 
+                // value={ingrediente.find(item =>item.value===form.ingredientCantitate[index][0])}
+                // options={ingrediente.map((ingredient) =>({
+                //     value: ingredient.id,
+                //     label: ingredient.denumire
+                // }))} 
                 // options={ingrediente}
                 onChange={(event) => {console.log(event.value)
                     modifyIngrediente('ingredientId', event.value, index)}}

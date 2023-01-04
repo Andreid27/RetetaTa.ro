@@ -2,6 +2,7 @@ package com.andrei.backend.controller;
 
 import com.andrei.backend.model.Ingredient;
 import com.andrei.backend.service.IngredientService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,9 @@ public class IngredientController {
     }
 
     @PostMapping("/ingredient")
-    public String addIngredient(@RequestBody Ingredient ingredient, HttpServletResponse response){
+    public String addIngredient(@RequestBody Ingredient ingredient, HttpServletRequest request, HttpServletResponse response){
         try {
-            ingredientService.addIngredient(ingredient);
+            ingredientService.addIngredient(ingredient,request);
             return null;
         } catch (Exception exception){
             response.setStatus(SC_CONFLICT);

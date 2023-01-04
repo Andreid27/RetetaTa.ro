@@ -14,6 +14,9 @@ public class Ingredient {
     private String denumire;
     private String descriere;
 
+    @ManyToOne
+    private User autor;
+
 
     public Ingredient() {}
 
@@ -48,4 +51,12 @@ public class Ingredient {
         this.descriere = descriere;
     }
 
+
+    public User getAutor() {
+        return autor;
+    }
+
+    public void setAutor(User autor) {
+        this.autor = autor;
+    }
 }

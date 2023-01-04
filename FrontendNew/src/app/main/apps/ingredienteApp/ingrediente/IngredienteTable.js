@@ -9,13 +9,13 @@ import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getretete, selectretete } from '../store/reteteSlice';
-import ReteteTableHead from './ReteteTableHead';
+import { getIngrediente, selectIngrediente } from '../store/ingredienteSlice';
+import IngredienteTableHead from './IngredienteTableHead';
 
-function ReteteTable(props) {
+function IngredienteTable(props) {
 	const dispatch = useDispatch();
-	const retete = useSelector(selectretete);
-	const searchText = useSelector(({ reteteApp }) => reteteApp.retete.searchText);
+	const retete = useSelector(selectIngrediente);
+	const searchText = useSelector(({ ingredienteApp }) => ingredienteApp.ingrediente.searchText);
 
 	const [selected, setSelected] = useState([]);
 	const [data, setData] = useState(retete);
@@ -27,7 +27,7 @@ function ReteteTable(props) {
 	});
 
 	useEffect(() => {
-		dispatch(getretete());
+		dispatch(getIngrediente());
 	}, [dispatch]);
 
 	useEffect(() => {
@@ -63,7 +63,7 @@ function ReteteTable(props) {
 	}
 
 	function handleClick(item) {
-		props.history.push(`/apps/reteteApp/retete/${item.id}`);
+		props.history.push(`/apps/ingredienteApp/ingrediente/${item.id}`);
 	}
 
 	function handleCheck(event, id) {
@@ -91,19 +91,11 @@ function ReteteTable(props) {
 		setRowsPerPage(event.target.value);
 	}
 
-	function priceRangeCalculator(priceRange) {
-		let priceString = '';
-		for (let i = 0; i < priceRange; i++) {
-			priceString += '$';
-		}
-		return priceString;
-	}
-
 	return (
 		<div className="w-full flex flex-col">
 			<FuseScrollbars className="flex-grow overflow-x-auto">
 				<Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
-					<ReteteTableHead
+					<IngredienteTableHead
 						numSelected={selected.length}
 						order={order}
 						onSelectAllClick={handleSelectAllClick}
@@ -116,8 +108,6 @@ function ReteteTable(props) {
 							data,
 							[
 								o => {
-									// console.log(o);
-									// console.log(order);
 									return o[order.id];
 								}
 							],
@@ -145,27 +135,6 @@ function ReteteTable(props) {
 											/>
 										</TableCell>
 
-										{/* <TableCell
-											className="w-52 px-4 md:px-0"
-											component="th"
-											scope="row"
-											padding="none"
-										>
-											{n.images.length > 0 && n.featuredImageId ? (
-												<img
-													className="w-full block rounded"
-													src={_.find(n.images, { id: n.featuredImageId }).url}
-													alt={n.denumire}
-												/>
-											) : (
-												<img
-													className="w-full block rounded"
-													src="assets/images/ecommerce/product-image-placeholder.png"
-													alt={n.denumire}
-												/>
-											)}
-										</TableCell> */}
-
 										<TableCell className="p-4 md:p-16" component="th" scope="row">
 											{n.denumire}
 										</TableCell>
@@ -173,39 +142,6 @@ function ReteteTable(props) {
 										<TableCell className="p-4 md:p-16 truncate" component="th" scope="row">
 											{n.descriere}
 										</TableCell>
-
-										<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-											{priceRangeCalculator(n.priceRange)}
-											{/* {} */}
-										</TableCell>
-
-										<TableCell
-											className="p-4 md:p-16 truncate"
-											component="th"
-											scope="row"
-											align="right"
-										>
-											{n.calorii}
-										</TableCell>
-										{/*<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-											{n.quantity}
-											<i
-												className={clsx(
-													'inline-block w-8 h-8 rounded mx-8',
-													n.quantity <= 5 && 'bg-red',
-													n.quantity > 5 && n.quantity <= 25 && 'bg-orange',
-													n.quantity > 25 && 'bg-green'
-												)}
-											/>
-										</TableCell>
-
-										<TableCell className="p-4 md:p-16" component="th" scope="row" align="right">
-											{n.active ? (
-												<Icon className="text-green text-20">check_circle</Icon>
-											) : (
-												<Icon className="text-red text-20">remove_circle</Icon>
-											)}
-										</TableCell> */}
 									</TableRow>
 								);
 							})}
@@ -232,4 +168,4 @@ function ReteteTable(props) {
 	);
 }
 
-export default withRouter(ReteteTable);
+export default withRouter(IngredienteTable);

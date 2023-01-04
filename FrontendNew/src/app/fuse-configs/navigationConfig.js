@@ -19,7 +19,7 @@ const navigationConfig = [
 		translate: 'Ingrediente',
 		type: 'item',
 		icon: 'local_grocery_store',
-		url: '/apps/event-app/all'
+		url: '/apps/ingredienteApp'
 	}
 ];
 

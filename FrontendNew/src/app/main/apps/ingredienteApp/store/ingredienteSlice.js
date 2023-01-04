@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
-import * as apiSpec from './../../../../apiSpec';
+import * as apiSpec from '../../../../apiSpec';
 
-export const getIngrediente = createAsyncThunk('reteteApp/Retete/getIngrediente', async () => {
+export const getIngrediente = createAsyncThunk('ingredienteApp/Ingrediente/getIngrediente', async () => {
 	const response = await axios.get(apiSpec.INGREDIENTE);
 	const data = await response.data;
 
@@ -11,8 +11,8 @@ export const getIngrediente = createAsyncThunk('reteteApp/Retete/getIngrediente'
 
 const ingredienteAdapter = createEntityAdapter({});
 
-export const { selectAll: selectIngrediente, selectById: selectIngredienttById } = ingredienteAdapter.getSelectors(
-	state => state.reteteApp.ingrediente
+export const { selectAll: selectIngrediente, selectById: selectProductById } = ingredienteAdapter.getSelectors(
+	state => state.ingredienteApp.ingrediente
 );
 
 const ingredienteSlice = createSlice({

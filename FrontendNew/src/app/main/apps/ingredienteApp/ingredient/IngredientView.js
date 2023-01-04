@@ -11,22 +11,21 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { deleteReteta } from '../store/retetaSlice';
-import IngredienteInfoTabel from './IngredienteInfoTable';
+import { deleteIngredient } from '../store/ingredientSlice';
 
-const RetetaView = () => {
+const IngredientView = () => {
 	const theme = useTheme();
 	const routeParams = useParams();
-	const reteta = useSelector(({ reteteApp }) => reteteApp.product);
+	const ingredient = useSelector(({ ingredienteApp }) => ingredienteApp.ingredient);
 	const user = useSelector(({ auth }) => auth.user.data);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 	const deleteThisReteta = async event => {
-		dispatch(deleteReteta(routeParams));
+		dispatch(deleteIngredient(routeParams));
 		await delay(1000);
-		history.push('/apps/reteteApp/retete');
+		history.push('/apps/ingredienteApp');
 	};
 
 	return (
@@ -36,7 +35,7 @@ const RetetaView = () => {
 				header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
 			}}
 			header={
-				reteta && (
+				ingredient && (
 					<div className="flex flex-1 w-full items-center justify-between">
 						<div className="flex flex-col items-start max-w-full">
 							<FuseAnimate animation="transition.slideRightIn" delay={300}>
@@ -44,13 +43,13 @@ const RetetaView = () => {
 									className="normal-case flex items-center sm:mb-12"
 									component={Link}
 									role="button"
-									to="/apps/reteteApp/retete"
+									to="/apps/ingredienteApp"
 									color="inherit"
 								>
 									<Icon className="text-20">
 										{theme.direction === 'ltr' ? 'arrow_back' : 'arrow_forward'}
 									</Icon>
-									<span className="mx-4">Rețete</span>
+									<span className="mx-4">Ingrediente</span>
 								</Typography>
 							</FuseAnimate>
 
@@ -60,12 +59,12 @@ const RetetaView = () => {
 										<Typography className="text-16 sm:text-20 truncate"></Typography>
 									</FuseAnimate>
 									<FuseAnimate animation="transition.slideLeftIn" delay={300}>
-										<Typography variant="caption">Detalii rețetă {reteta.denumire}</Typography>
+										<Typography variant="caption">Detalii rețetă {ingredient.denumire}</Typography>
 									</FuseAnimate>
 								</div>
 							</div>
 						</div>
-						{(reteta.autor && reteta.autor.username === user.displayName) && (
+						{(ingredient.autor && ingredient.autor.username === user.displayName) && (
 							<FuseAnimate animation="transition.slideRightIn" delay={300}>
 								<div>
 									<Button
@@ -73,8 +72,8 @@ const RetetaView = () => {
 										variant="contained"
 										color="secondary"
 										onClick={() =>
-											history.push('/apps/reteteApp/retete/' + routeParams.productId + '/edit')
-										} // DE CONTINUAT DE AICI LOGICA PENRTU IMPLEMENTARE IN CONTINUARE UPDATE RETETA
+											history.push('/apps/ingredienteApp/ingrediente/' + routeParams.ingredientId + '/edit')
+										}
 									>
 										Editare
 									</Button>
@@ -92,22 +91,20 @@ const RetetaView = () => {
 				)
 			}
 			content={
-				reteta && (
+				ingredient && (
 					<div className="p-16 sm:p-24 max-w-2xl">
 						<div>
 							<Box margin={2}>
-								<Typography variant="h3" align="center">
-									{reteta.denumire}
+								<Typography variant="h3" align="left">
+									{ingredient.denumire}
 								</Typography>
 							</Box>
 							<Box margin={1}>
 								<Typography variant="h5">Descriere</Typography>
 								<Typography variant="body1" style={{ marginTop: 10, marginBottom: 5 }}>
-									{reteta.descriere}{' '}
+									{ingredient.descriere}{' '}
 								</Typography>
 							</Box>
-
-							<IngredienteInfoTabel ingrediente={reteta.ingredientCantitate} />
 						</div>
 					</div>
 				)
@@ -117,4 +114,4 @@ const RetetaView = () => {
 	);
 };
 
-export default RetetaView;
+export default IngredientView;

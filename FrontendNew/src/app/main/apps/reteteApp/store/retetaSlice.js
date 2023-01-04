@@ -5,7 +5,7 @@ import toastr from 'toastr';
 import 'toastr/build/toastr.css';
 import './StatusUpdate/custom-toastr.css';
 
-export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', async params => {
+export const getProduct = createAsyncThunk('reteteApp/product/getProduct', async params => {
 	// console.log(params);
 	const response = await axios.get(apiSpec.RETETA + '/' + params.productId);
 	const data = await response.data;
@@ -13,7 +13,7 @@ export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', as
 	return data;
 });
 
-export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', async product => {
+export const saveProduct = createAsyncThunk('reteteApp/product/saveProduct', async product => {
 	let ingredientCantitateFormat = [];
 	for (let i = 0; i < product.ingredientCantitate.length; i++) {
 		let ingredient = {
@@ -45,7 +45,7 @@ export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', 
 
 
 
-export const updateProduct = createAsyncThunk('eCommerceApp/product/updateProduct', async product => {
+export const updateProduct = createAsyncThunk('reteteApp/product/updateProduct', async product => {
 	let ingredientCantitateFormat = [];
 	for (let i = 0; i < product.ingredientCantitate.length; i++) {
 		let ingredient = {
@@ -75,7 +75,7 @@ export const updateProduct = createAsyncThunk('eCommerceApp/product/updateProduc
 	return data;
 });
 
-export const deleteReteta = createAsyncThunk('eCommerceApp/product/deleteReteta', async params => {
+export const deleteReteta = createAsyncThunk('reteteApp/product/deleteReteta', async params => {
 	const response = await axios.delete(apiSpec.RETETA + '/' + params.productId);
 	const data = await response.data;
 	const status = await response.status;
@@ -87,7 +87,7 @@ export const deleteReteta = createAsyncThunk('eCommerceApp/product/deleteReteta'
 });
 
 const retetelice = createSlice({
-	name: 'eCommerceApp/product',
+	name: 'reteteApp/product',
 	initialState: null,
 	reducers: {
 		newProduct: {

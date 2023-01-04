@@ -13,75 +13,45 @@ import withReducer from 'app/store/withReducer';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link, useParams } from 'react-router-dom';
-import { saveProduct, newProduct, getProduct, updateProduct } from '../store/retetaSlice';
+import { saveIngredient, getIngredient, updateIngredient, newIngredient } from '../store/ingredientSlice';
 import reducer from '../store';
-import RetetaView from './RetetaView';
 import { useTheme } from '@material-ui/core';
-import IngredeinteFields from './IngredeinteFields';
-
-
-let priceRangeValues = [
-	{
-		value: 1,
-		label: '$'
-	},
-	{
-		value: 2,
-		label: '$$'
-	},
-	{
-		value: 3,
-		label: '$$$'
-	},
-	{
-		value: 4,
-		label: '$$$$'
-	},
-	{
-		value: 5,
-		label: '$$$$$'
-	}
-];
+import IngredientView from './IngredientView';
 
 
 
-function Reteta(props) {
+
+function Ingredient(props) {
 	const dispatch = useDispatch();
-	const product = useSelector(({ reteteApp }) => reteteApp.product);
+	const ingredient = useSelector(({ ingredienteApp }) => ingredienteApp.ingredient);
 	const theme = useTheme();
 
-	const [formIngrediente, setFormIngrediente] = useState('');
 	const [tabValue, setTabValue] = useState(0);
 	const { form, handleChange, setForm } = useForm(null);
 	const routeParams = useParams();
 	const history = useHistory();
 
-	useDeepCompareEffect(() => {
-		function updateretetetate() {
-			const { productId } = routeParams;
 
-			if (productId === 'new') {
-				dispatch(newProduct());
+	useDeepCompareEffect(() => {
+		function updateIngrediente() {
+			const { ingredientId } = routeParams;
+
+			if (ingredientId === 'new') {
+				dispatch(newIngredient());
 			} else {
-				dispatch(getProduct(routeParams));
+				dispatch(getIngredient(routeParams));
 			}
 		}
 
-		updateretetetate();
+		updateIngrediente();
 	}, [dispatch, routeParams]);
 
 	useEffect(() => {
-		if ((product && !form) || (product && form && product.id !== form.id)) {
-			setForm(product);
+		if ((ingredient && !form) || (ingredient && form && ingredient.id !== form.id)) {
+			setForm(ingredient);
 		}
-	}, [form, product, setForm]);
+	}, [form, ingredient, setForm]);
 
-	// useEffect(() => {
-	// 	if ((product && !form) && routeParams.productHandle == 'edit') {
-	// 		let numarIngrediente = product.ingredientCantitate.length
-	// 		setForm(_.set({ ...form }, 'ingredienteNumber', numarIngrediente));
-	// 	}
-	// }, []); DE CONTINUAT DACA ESTE NEVOIE SA TINA MINTE INGREDIENTELE
 
 	const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -89,37 +59,32 @@ function Reteta(props) {
 		setTabValue(value);
 	}
 
-	function handleChipChange(value, name) {
-		// console.log(value, name);
-		setForm(_.set({ ...form }, name, value.value));
-	}
-
 
 
 	function canBeSubmitted() {
-		return form.denumire.length > 0 && !_.isEqual(product, form);
+		return form.denumire.length > 0 && !_.isEqual(ingredient, form);
 	}
 
 	const submitProduct = async event => {
-		if (routeParams.productId === 'new') {
-			dispatch(saveProduct(formIngrediente));
+		if (routeParams.ingredientId === 'new') {
+			dispatch(saveIngredient(form));
 			await delay(1000);
-			history.push('/apps/reteteApp/retete');
+			history.push('/apps/ingredienteApp');
 		}
 		if (routeParams.productHandle === 'edit') {
-			dispatch(updateProduct(formIngrediente));
+			dispatch(updateIngredient(form));
 			await delay(1000);
-			history.push('/apps/reteteApp/retete/' + routeParams.productId);
+			history.push('/apps/ingredienteApp/ingrediente/' + routeParams.ingredientId);
 		}
 	};
 	// console.log(routeParams);
 
 	if (
-		(!product || (product && routeParams.productId !== product.id)) &&
-		routeParams.productId !== 'new' &&
+		(!ingredient || (ingredient && routeParams.ingredientId !== ingredient.id)) &&
+		routeParams.ingredientId !== 'new' &&
 		routeParams.productHandle !== 'edit'
 	) {
-		return <RetetaView reteta={product} />;
+		return <IngredientView reteta={ingredient} />;
 	}
 
 	return (
@@ -137,13 +102,13 @@ function Reteta(props) {
 									className="normal-case flex items-center sm:mb-12"
 									component={Link}
 									role="button"
-									to="/apps/reteteApp/retete"
+									to="/apps/ingredienteApp"
 									color="inherit"
 								>
 									<Icon className="text-20">
 										{theme.direction === 'ltr' ? 'arrow_back' : 'arrow_forward'}
 									</Icon>
-									<span className="mx-4">Rețete</span>
+									<span className="mx-4">Ingrediente</span>
 								</Typography>
 							</FuseAnimate>
 
@@ -151,11 +116,11 @@ function Reteta(props) {
 								<div className="flex flex-col min-w-0 mx-8 sm:mc-16">
 									<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 										<Typography className="text-16 sm:text-20 truncate">
-											{form.denumire ? form.denumire : 'Rețetă nouă'}
+											{form.denumire ? form.denumire : 'Ingredient nou'}
 										</Typography>
 									</FuseAnimate>
 									<FuseAnimate animation="transition.slideLeftIn" delay={300}>
-										<Typography variant="caption">Detalii rețetă</Typography>
+										<Typography variant="caption">Detalii ingredient</Typography>
 									</FuseAnimate>
 								</div>
 							</div>
@@ -168,7 +133,7 @@ function Reteta(props) {
 								disabled={!canBeSubmitted()}
 								onClick={() => submitProduct()}
 							>
-								Salvează rețeta
+								Salvează ingredient
 							</Button>
 						</FuseAnimate>
 					</div>
@@ -185,7 +150,6 @@ function Reteta(props) {
 					classes={{ root: 'w-full h-64' }}
 				>
 					<Tab className="h-64 normal-case" label="Descriere" />
-					<Tab className="h-64 normal-case" label="Ingrediente" />
 				</Tabs>
 			}
 			content={
@@ -220,59 +184,6 @@ function Reteta(props) {
 									variant="outlined"
 									fullWidth
 								/>
-
-								<FuseChipSelect
-									className="mt-8 mb-24"
-									value={priceRangeValues.find(item => item.value === form.priceRange)}
-									options={priceRangeValues}
-									onChange={value => {
-										console.log(value);
-										handleChipChange(value, 'priceRange');
-									}}
-									placeholder="Selectați zona de preț"
-									textFieldProps={{
-										label: 'Pret',
-										InputLabelProps: {
-											shrink: true
-										},
-										variant: 'outlined'
-									}}
-								/>
-								<TextField
-									className="mt-8 mb-16"
-									id="calorii"
-									name="calorii"
-									label="Calorii"
-									value={form.calorii}
-									onChange={handleChange}
-									type="number"
-									variant="outlined"
-									autoFocus
-									fullWidth
-								/>
-							</div>
-						)}
-						{tabValue === 1 && (
-							<div>
-								<TextField
-									className="mt-8 mb-16"
-									label="Număr ingrediente"
-									id="ingredienteNumber"
-									name="ingredienteNumber"
-									value={form.ingredienteNumber}
-									onChange={handleChange}
-									type="number"
-									variant="outlined"
-									autoFocus
-									fullWidth
-								/>
-								<IngredeinteFields
-									numar={5}
-									form={form}
-									numarIngrediente={form.ingredienteNumber}
-									handleForm={setFormIngrediente}
-								></IngredeinteFields>
-								{/* de facut pentru fiecare ingredient - cantitate.... */}
 							</div>
 						)}
 					</div>
@@ -283,4 +194,4 @@ function Reteta(props) {
 	);
 }
 
-export default withReducer('reteteApp', reducer)(Reteta);
+export default withReducer('ingredienteApp', reducer)(Ingredient);

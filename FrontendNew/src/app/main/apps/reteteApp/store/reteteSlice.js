@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getretete = createAsyncThunk('eCommerceApp/Retete/getRetete', async () => {
+export const getretete = createAsyncThunk('reteteApp/Retete/getRetete', async () => {
 	const response = await axios.get('/retete');
 	const data = await response.data;
 
@@ -11,11 +11,11 @@ export const getretete = createAsyncThunk('eCommerceApp/Retete/getRetete', async
 const reteteAdapter = createEntityAdapter({});
 
 export const { selectAll: selectretete, selectById: selectProductById } = reteteAdapter.getSelectors(
-	state => state.eCommerceApp.retete
+	state => state.reteteApp.retete
 );
 
 const reteteSlice = createSlice({
-	name: 'eCommerceApp/retete',
+	name: 'reteteApp/retete',
 	initialState: reteteAdapter.getInitialState({
 		searchText: ''
 	}),

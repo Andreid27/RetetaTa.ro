@@ -9,22 +9,22 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
-import { setreteteSearchText } from '../store/reteteSlice';
+import { setreteteSearchText as setIngredienteSearchText } from '../store/ingredienteSlice';
 
-function ReteteHeader(props) {
+function IngredienteHeader(props) {
 	const dispatch = useDispatch();
-	const searchText = useSelector(({ reteteApp }) => reteteApp.retete.searchText);
+	const searchText = useSelector(({ ingredienteApp }) => ingredienteApp.ingrediente.searchText);
 	const mainTheme = useSelector(selectMainTheme);
 
 	return (
 		<div className="flex flex-1 w-full items-center justify-between">
 			<div className="flex items-center">
 				<FuseAnimate animation="transition.expandIn" delay={300}>
-					<Icon className="text-32">shopping_basket</Icon>
+					<Icon className="text-32">local_grocery_store</Icon>
 				</FuseAnimate>
 				<FuseAnimate animation="transition.slideLeftIn" delay={300}>
 					<Typography className="hidden sm:flex mx-0 sm:mx-12" variant="h6">
-						Rețete
+						Ingrediente
 					</Typography>
 				</FuseAnimate>
 			</div>
@@ -42,9 +42,9 @@ function ReteteHeader(props) {
 								fullWidth
 								value={searchText}
 								inputProps={{
-									'aria-label': 'Caută o rețetă'
+									'aria-label': 'Caută un ingredient'
 								}}
-								onChange={ev => dispatch(setreteteSearchText(ev))}
+								onChange={ev => dispatch(setIngredienteSearchText(ev))}
 							/>
 						</Paper>
 					</FuseAnimate>
@@ -53,12 +53,12 @@ function ReteteHeader(props) {
 			<FuseAnimate animation="transition.slideRightIn" delay={300}>
 				<Button
 					component={Link}
-					to="/apps/reteteApp/retete/new"
+					to="/apps/ingredienteApp/ingrediente/new"
 					className="whitespace-no-wrap normal-case"
 					variant="contained"
 					color="secondary"
 				>
-					<span className="hidden sm:flex">Adauga o rețetă nouă</span>
+					<span className="hidden sm:flex">Adaugă un ingredient nou</span>
 					<span className="flex sm:hidden">New</span>
 				</Button>
 			</FuseAnimate>
@@ -66,4 +66,4 @@ function ReteteHeader(props) {
 	);
 }
 
-export default ReteteHeader;
+export default IngredienteHeader;
