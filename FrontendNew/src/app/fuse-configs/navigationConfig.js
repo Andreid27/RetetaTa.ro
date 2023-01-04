@@ -6,14 +6,6 @@ i18next.addResourceBundle('en', 'navigation', en);
 
 const navigationConfig = [
 	{
-		id: 'home',
-		title: 'Home',
-		translate: 'Home',
-		type: 'item',
-		icon: 'account_box',
-		url: '/apps/home/all'
-	},
-	{
 		id: 'Retete',
 		title: 'Retete',
 		translate: 'Retete',

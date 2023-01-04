@@ -16,6 +16,8 @@ public class AuthenticationResponese {
         data.put("displayName", user.getUsername());
         data.put("shortcuts", new ArrayList());
         data.put("email",user.getMail());
+        data.put("nume", user.getNume());
+        data.put("prenume", user.getPrenume());
     }
 
 

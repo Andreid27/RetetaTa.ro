@@ -31,7 +31,7 @@ function AboutTab() {
 		return null;
 	}
 
-	const { city, country, email, name} = data;
+	const { nume, country, email, prenume} = data.data;
 
 	return (
 		<div className="md:flex max-w-2xl">
@@ -52,8 +52,13 @@ function AboutTab() {
 
 						<CardContent>
 							<div className="mb-24">
-								<Typography className="font-bold mb-4 text-15">Name</Typography>
-								<Typography>{name}</Typography>
+								<Typography className="font-bold mb-4 text-15">Prenume</Typography>
+								<Typography>{prenume}</Typography>
+							</div>
+
+							<div className="mb-24">
+								<Typography className="font-bold mb-4 text-15">Nume</Typography>
+								<Typography>{nume}</Typography>
 							</div>
 
 							<div className="mb-24">
@@ -61,15 +66,6 @@ function AboutTab() {
 								<Typography>{email}</Typography>
 							</div>
 
-							<div className="mb-24">
-								<Typography className="font-bold mb-4 text-15">City</Typography>
-								<Typography>{city}</Typography>
-							</div>
-
-							<div className="mb-24">
-								<Typography className="font-bold mb-4 text-15">Country</Typography>
-								<Typography>{country}</Typography>
-							</div>
 						</CardContent>
 					</Card>
 				</FuseAnimateGroup>

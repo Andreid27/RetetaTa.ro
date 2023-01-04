@@ -50,11 +50,11 @@ function ProfilePage() {
 								variant="h4"
 								color="inherit"
 							>
-								{user.username}
+								{user.data.displayName}
 							</Typography>
 						</FuseAnimate>
 					</div>
-
+{/* 
 					<div className="flex items-center justify-end">
 						<Button className="mx-8 normal-case" variant="contained" color="secondary" aria-label="Follow">
 							Follow
@@ -62,7 +62,7 @@ function ProfilePage() {
 						<Button className="normal-case" variant="contained" color="primary" aria-label="Send Message">
 							Send Message
 						</Button>
-					</div>
+					</div> */}
 				</div>
 			}
 			contentToolbar={
@@ -83,12 +83,12 @@ function ProfilePage() {
 						}}
 						label="About"
 					/>
-					<Tab
+					{/* <Tab
 						classes={{
 							root: 'h-64'
 						}}
 						label="Events"
-					/>
+					/> */}
 				</Tabs>
 			}
 			content={

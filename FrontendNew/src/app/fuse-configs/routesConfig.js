@@ -30,7 +30,7 @@ const routes = [
 	{
 		path: '/',
 		exact: true,
-		component: () => <Redirect to="/documentation" />
+		component: () => <Redirect to="/apps/reteteApp/retete" />
 	},
 	{
 		component: () => <Redirect to="/pages/errors/error-404" />

@@ -15,11 +15,11 @@ const languages = [
 		title: 'English',
 		flag: 'us'
 	},
-	{
-		id: 'tr',
-		title: 'Turkish',
-		flag: 'tr'
-	},
+	// {
+	// 	id: 'tr',
+	// 	title: 'Turkish',
+	// 	flag: 'tr'
+	// },
 	{
 		id: 'ar',
 		title: 'Arabic',
