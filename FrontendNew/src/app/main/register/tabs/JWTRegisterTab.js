@@ -48,7 +48,7 @@ function JWTRegisterTab(props) {
 
 	useEffect(() => {
 		console.log(register)
-		if(register.success==true){
+		if(register.success===true){
 			toastr.success('Utilizator inregistrat cu succes! Acum vă puteți loga in secțiunea log in.');
 		}
 	}, [register]);

@@ -1,5 +1,4 @@
 import FuseAnimate from '@fuse/core/FuseAnimate';
-import FuseChipSelect from '@fuse/core/FuseChipSelect';
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import { useForm, useDeepCompareEffect } from '@fuse/hooks';
 import _ from '@lodash';

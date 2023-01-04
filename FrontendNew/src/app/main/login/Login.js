@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import JWTLoginTab from './tabs/JWTLoginTab';
 
