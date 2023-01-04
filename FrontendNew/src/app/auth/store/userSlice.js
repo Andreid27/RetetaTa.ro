@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import firebase from 'firebase';
 import history from '@history';
 import _ from '@lodash';
-import { setInitialSettings, setDefaultSettings } from 'app/store/fuse/settingsSlice';
+import { setInitialSettings } from 'app/store/fuse/settingsSlice';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import jwtService from 'app/services/jwtService';
 

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { showMessage } from 'app/store/fuse/messageSlice';
 import jwtService from 'app/services/jwtService';
 import { setUserData } from './userSlice';
 

@@ -1,12 +1,11 @@
 import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import jwtService from 'app/services/jwtService';
-import React, { Component, useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
 
 import { setUserData, logoutUser } from './store/userSlice';
-import { loginSuccess, setSuccesLogin } from './store/loginSlice';
 
 class Auth extends Component {
 	state = {

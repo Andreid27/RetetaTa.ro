@@ -1,15 +1,12 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import FuseUtils from '@fuse/utils';
 import * as apiSpec from '../../../../apiSpec';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import toastr from 'toastr';
 import 'toastr/build/toastr.css';
 import './StatusUpdate/custom-toastr.css';
 
 export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', async params => {
-	console.log(params);
+	// console.log(params);
 	const response = await axios.get(apiSpec.RETETA + '/' + params.productId);
 	const data = await response.data;
 
@@ -39,7 +36,6 @@ export const saveProduct = createAsyncThunk('eCommerceApp/product/saveProduct', 
 	const data = await response.data;
 	const status = await response.status;
 	if (status === 200) {
-		const status = response.status;
 		toastr.success('Rețeta a fost adăugată cu succes!');
 	}
 
@@ -73,7 +69,6 @@ export const updateProduct = createAsyncThunk('eCommerceApp/product/updateProduc
 	const data = await response.data;
 	const status = await response.status;
 	if (status === 200) {
-		const status = response.status;
 		toastr.success('Rețeta a fost modificată cu succes!');
 	}
 
@@ -81,12 +76,10 @@ export const updateProduct = createAsyncThunk('eCommerceApp/product/updateProduc
 });
 
 export const deleteReteta = createAsyncThunk('eCommerceApp/product/deleteReteta', async params => {
-	console.log(params);
 	const response = await axios.delete(apiSpec.RETETA + '/' + params.productId);
 	const data = await response.data;
 	const status = await response.status;
 	if (status === 200) {
-		const status = response.status;
 		toastr.success('Rețeta a fost ștearsă cu succes!');
 	}
 

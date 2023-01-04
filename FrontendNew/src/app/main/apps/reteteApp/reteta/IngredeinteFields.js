@@ -1,14 +1,11 @@
 import FuseChipSelect from '@fuse/core/FuseChipSelect';
-import { useForm, useDeepCompareEffect } from '@fuse/hooks';
+import { useForm } from '@fuse/hooks';
 import _ from '@lodash';
 import { Container } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { useStyles } from '@material-ui/pickers/views/Calendar/SlideTransition';
 import withReducer from 'app/store/withReducer';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { useTheme } from 'styled-components';
 import reducer from '../store';
 import { getIngrediente, selectIngrediente } from '../store/ingredienteSlice';
 
@@ -27,12 +24,8 @@ function IngredeinteFields(props) {
     const dispatch = useDispatch();
     const ingrediente = useSelector(selectIngrediente);
 	const product = useSelector(({ eCommerceApp }) => eCommerceApp.product);
-	const theme = useTheme();
 
-	const classes = useStyles(props);
-	const [tabValue, setTabValue] = useState(0);
-	const { form, handleChange, setForm } = useForm(props.form);
-	const routeParams = useParams();
+	const { form, setForm } = useForm(props.form);
 
 	useEffect(() => {
 		if ((product && !form) || (product && form && product.id !== form.id)) {
@@ -40,23 +33,9 @@ function IngredeinteFields(props) {
 		}
 	}, [form, product, setForm]);
 
-	function handleChangeTab(event, value) {
-		setTabValue(value);
-	}
-
-	function handleChipChange(value, name) {
-		console.log(value, name)
-		setForm(
-			_.set(
-				{ ...form },
-				name,
-				value.value
-			)
-		);
-	}
 
     function handleIngredienteChange(value,index) {
-		console.log(value)
+		// console.log(value)
 		setForm(
 			_.set(
 				{ ...form },
@@ -64,7 +43,7 @@ function IngredeinteFields(props) {
 				value
 			)
 		);
-        console.log(form)
+        // console.log(form)
         props.handleForm(form);
 	}
 
@@ -90,22 +69,22 @@ function IngredeinteFields(props) {
 
 
     function modifyIngrediente(type, value, index){
-        console.log(form.ingredientCantitate)
+        // console.log(form.ingredientCantitate)
         let ingredientCantitateCopy = [...form.ingredientCantitate] // create a new array using the spread operator
         if (type === 'ingredientId') {
           let ingredientCantitateUpdate = [...ingredientCantitateCopy[index]]; // create a new inner array using the spread operator
           ingredientCantitateUpdate[0] = value
           ingredientCantitateCopy[index] = ingredientCantitateUpdate
-          console.log(ingredientCantitateCopy)
+        //   console.log(ingredientCantitateCopy)
         }
         if (type === 'cantitate') {
           let ingredientCantitateUpdate = [...ingredientCantitateCopy[index]]; // create a new inner array using the spread operator
           ingredientCantitateUpdate[1] = value
           ingredientCantitateCopy[index] = ingredientCantitateUpdate
         }
-        console.log(type, index, value)
+        // console.log(type, index, value)
         handleIngredienteChange(ingredientCantitateCopy)
-        console.log("IngredienteState:"+form.ingredientCantitate)
+        // console.log("IngredienteState:"+form.ingredientCantitate)
 
     }
 
@@ -122,7 +101,7 @@ function IngredeinteFields(props) {
                 autoFocus
                 id="denumire_ingredient"
                 name="denumire_ingredient"
-                value={ingrediente.find(item =>item.value==form.ingredientCantitate[index][0])}
+                value={ingrediente.find(item =>item.value===form.ingredientCantitate[index][0])}
                 options={ingrediente.map((ingredient) =>({
                     value: ingredient.id,
                     label: ingredient.denumire
@@ -157,7 +136,7 @@ function IngredeinteFields(props) {
 
             )
           }
-        console.log(returnText)
+        // console.log(returnText)
         return returnText;
         }
 

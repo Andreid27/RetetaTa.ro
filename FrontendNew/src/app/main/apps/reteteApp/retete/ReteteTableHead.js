@@ -72,7 +72,7 @@ function ReteteTableHead(props) {
 
 	const createSortHandler = property => event => {
 		props.onRequestSort(event, property);
-		console.log(event, property);
+		// console.log(event, property);
 	};
 
 	function openSelectedreteteMenu(event) {

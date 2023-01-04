@@ -1,7 +1,6 @@
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
@@ -9,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import React, { useState } from 'react';
 import AboutTab from './tabs/AboutTab';
 import EventsTab from './tabs/EventsTab';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
 	layoutHeader: {

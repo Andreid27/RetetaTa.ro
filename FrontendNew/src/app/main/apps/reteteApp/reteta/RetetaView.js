@@ -1,27 +1,17 @@
+import React from 'react';
 import FuseAnimate from '@fuse/core/FuseAnimate';
-import FuseChipSelect from '@fuse/core/FuseChipSelect';
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import {
 	Box,
 	Button,
-	Collapse,
 	Icon,
-	IconButton,
-	makeStyles,
-	TableBody,
-	TableCell,
-	TableRow,
-	TextField,
 	Typography,
 	useTheme
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { Column, Table } from 'react-virtualized';
 import { deleteReteta } from '../store/retetaSlice';
-import { selectProductById } from '../store/reteteSlice';
 import IngredienteInfoTabel from './IngredienteInfoTable';
 
 const RetetaView = () => {
