@@ -62,7 +62,7 @@ public class AuthenticationController {
             username = jwtTokenUtil.extractUsername(jwtToken);
             if (username != null && !jwtTokenUtil.isTokenExpired(jwtToken)) {
                 user = (User) userService.loadUserByUsername(username);
-                new_access_token = jwtTokenUtil.generateToken(user, 10);
+                new_access_token = jwtTokenUtil.generateToken(user, 30);
                 new_refresh_token = jwtTokenUtil.generateToken(user, 12 * 60);
             }
         }
