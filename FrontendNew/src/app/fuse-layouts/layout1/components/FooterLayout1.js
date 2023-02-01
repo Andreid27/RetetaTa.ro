@@ -19,9 +19,9 @@ function FooterLayout1(props) {
 				elevation={2}
 			>
 				<Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
-					<div className="flex flex-grow flex-shrink-0">
+					{/* <div className="flex flex-grow flex-shrink-0">
 						<DocumentationButton className="mx-4" />
-					</div>
+					</div> */}
 
 					<div className="flex flex-grow flex-shrink-0 px-12 justify-end">
 						{/* <PoweredByLinks /> */}

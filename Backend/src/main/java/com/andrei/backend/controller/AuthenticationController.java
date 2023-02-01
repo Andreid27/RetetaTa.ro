@@ -40,7 +40,7 @@ public class AuthenticationController {
         }
 
         final User user = (User) userService.loadUserByUsername(authenticationRequest.getUsername());
-        final String access_token = jwtTokenUtil.generateToken(user,1);
+        final String access_token = jwtTokenUtil.generateToken(user,60);
         final String refresh_token = jwtTokenUtil.generateToken(user,12*60);
 
 
